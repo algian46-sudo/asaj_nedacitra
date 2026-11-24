@@ -859,322 +859,523 @@
       closedMsgText: "Ujian telah ditutup."
     };
 
-    // ==========================================
-    // 1. DATA SOAL PILIHAN GANDA (PG)
-    // ==========================================
+        // ========================================================
+    // 1. DATA SOAL PILIHAN GANDA (40 SOAL)
+    // ========================================================
     const rawQuestionsPG = [
       {
-        id: 1,
-        q: "Dua buah muatan listrik $q_1$ dan $q_2$ terpisah pada jarak $r$ menghasilkan gaya Coulomb sebesar $F$. Jika jarak kedua muatan diubah menjadi $\\frac{1}{3}$ kali semula, besar gaya Coulomb yang dihasilkan sekarang adalah...",
-        img: "",
-        options: ["$\\frac{1}{9} F$", "$\\frac{1}{3} F$", "$3 F$", "$9 F$"],
-        key: "D"
+            "id": 1,
+            "q": "Seorang teknisi bengkel melakukan pengukuran komponen mesin dan mencatat hasilnya ke dalam tabel berikut untuk diserahkan kepada bagian kontrol kualitas standar internasional (SI):\n\nBerdasarkan hasil audit kesesuaian standar SI dan ketepatan fungsi alat ukur pada tabel di atas, baris data yang memenuhi standar tanpa memerlukan perbaikan adalah nomor …",
+            "img": "https://i.imgur.com/fUDwXzW.png",
+            "options": [
+                  "1",
+                  "2",
+                  "3",
+                  "4"
+            ],
+            "key": "C"
       },
       {
-        id: 2,
-        q: "Sebuah penggaris plastik digosokkan dengan rambut kering kemudian didekatkan pada serpihan kertas kecil, sehingga kertas-kertas tersebut tertarik menempel. Peristiwa ini terjadi karena...",
-        img: "",
-        options: ["penggaris menyerap seluruh elektron bebas yang ada di dalam kertas", "rambut mentransfer proton ke penggaris sehingga bermuatan positif", "penggaris bermuatan menginduksi kertas netral dan menimbulkan gaya tarik", "kertas mengalami ionisasi total akibat gesekan udara di sekitarnya"],
-        key: "C"
+            "id": 2,
+            "q": "Perhatikan tabel karakteristik susunan partikel empat jenis bahan berikut yang diamati pada suhu ruang:\n\nSebuah tabung gas elpiji mengalami kebocoran kecil di dapur sehingga baunya dengan cepat menyebar ke seluruh ruangan. Baris pada tabel di atas yang paling tepat menjelaskan mekanisme fisik penyebab penyebaran gas tersebut adalah …",
+            "img": "https://i.imgur.com/Ggwht88.png",
+            "options": [
+                  "Baris a, karena partikel hanya bergetar kuat sehingga mendorong udara sekitar",
+                  "Baris b, karena partikel dapat berpindah tempat dengan gaya tarik kurang kuat",
+                  "Baris c, karena jarak partikel berjauhan namun tetap tersusun teratur",
+                  "Baris d, karena partikel berjauhan, bergerak sangat bebas, dan gaya tariknya sangat lemah"
+            ],
+            "key": "D"
       },
       {
-        id: 3,
-        q: "Dua muatan listrik identik terpisah sejauh $20 \\text{ cm}$ saling menolak dengan gaya $9 \\text{ N}$. Jika besar kedua muatan tersebut digandakan menjadi dua kali lipat dari nilai awal, besar gaya tolak-menolak keduanya pada jarak yang tetap adalah...",
-        img: "",
-        options: ["$9 \\text{ N}$", "$18 \\text{ N}$", "$27 \\text{ N}$", "$36 \\text{ N}$"],
-        key: "D"
+            "id": 3,
+            "q": "Dalam suatu praktikum kalibrasi alat laboratorium, sebuah termometer berskala Celsius menunjukkan suhu larutan sebesar $50^\\circ\\text{C}$. Apabila larutan yang sama diukur menggunakan termometer berskala Reamur yang telah dikalibrasi dengan baik, angka yang akan ditunjukkan oleh termometer Reamur adalah …",
+            "img": "",
+            "options": [
+                  "$100^\\circ\\text{R}$",
+                  "$60^\\circ\\text{R}$",
+                  "$40^\\circ\\text{R}$",
+                  "$25^\\circ\\text{R}$"
+            ],
+            "key": "C"
       },
       {
-        id: 4,
-        q: "Ketika batang kaca digosok dengan kain sutera, batang kaca akan bermuatan positif. Analisis proses mikroskopis yang mendasari fenomena tersebut adalah...",
-        img: "",
-        options: ["elektron dari kain sutera berpindah menuju ke batang kaca", "elektron dari batang kaca berpindah menuju ke kain sutera", "proton dari batang kaca dilepaskan bebas menuju ke udara", "proton dari kain sutera ditarik masuk ke dalam inti atom kaca"],
-        key: "B"
+            "id": 4,
+            "q": "Perhatikan grafik perubahan wujud dan kenaikan suhu $300 \\text{ gram}$ es berikut ketika dipanaskan secara kontinu!\n\nDiketahui kalor jenis es $= 2.100 \\text{ J/(kg}^\\circ\\text{C)}$, kalor jenis air $= 4.200 \\text{ J/(kg}^\\circ\\text{C)}$, dan kalor lebur es $= 340.000 \\text{ J/kg}$. Jika pemanas hanya dioperasikan hingga seluruh es tepat mencair pada suhu $0^\\circ\\text{C}$ (akhir proses $Q_2$), total energi kalor yang terserap oleh sistem dari kondisi awal adalah …",
+            "img": "https://i.imgur.com/JELkOtN.png",
+            "options": [
+                  "$31.500 \\text{ J}$",
+                  "$105.150 \\text{ J}$",
+                  "$114.600 \\text{ J}$",
+                  "$133.500 \\text{ J}$"
+            ],
+            "key": "B"
       },
       {
-        id: 5,
-        q: "Dua buah muatan titik terpisah sejauh $r$ menimbulkan gaya elektrostatik $F$. Agar gaya tarik antara kedua muatan tersebut menjadi $\\frac{1}{4}F$, tindakan yang harus dilakukan adalah...",
-        img: "",
-        options: ["mendekatkan jarak kedua muatan menjadi $\\frac{1}{2}r$", "menjauhkan jarak kedua muatan menjadi $2r$", "mendekatkan jarak kedua muatan menjadi $\\frac{1}{4}r$", "menjauhkan jarak kedua muatan menjadi $4r$"],
-        key: "B"
+            "id": 5,
+            "q": "Perhatikan keempat aktivitas sehari-hari yang ditunjukkan pada gambar berikut!\n\nSeorang siswa menganalisis hubungan antara resultan gaya ($\\Sigma F$) dan keadaan gerak benda pada setiap peristiwa. Pasangan peristiwa yang secara langsung membuktikan prinsip kelembaman benda (Hukum I Newton, $\\Sigma F = 0$) adalah …",
+            "img": "https://i.imgur.com/9dECC0a.png",
+            "options": [
+                  "(1) dan (2)",
+                  "(1) dan (3)",
+                  "(2) dan (4)",
+                  "(3) dan (4)"
+            ],
+            "key": "C"
       },
       {
-        id: 6,
-        q: "Kuat medan listrik sejauh $r$ dari muatan sumber titik $Q$ besarnya adalah $E$. Jika jarak titik tersebut diperbesar menjadi $3r$ dari posisi semula, besar kuat medan listriknya menjadi...",
-        img: "",
-        options: ["$\\frac{1}{9}E$", "$\\frac{1}{3}E$", "$3E$", "$9E$"],
-        key: "A"
+            "id": 6,
+            "q": "Perhatikan empat jenis peralatan yang sering digunakan dalam kehidupan sehari-hari pada gambar berikut!\n\nSeorang siswa mengelompokkan peralatan tersebut berdasarkan letak titik tumpu, titik beban, dan titik kuasanya. Pasangan alat yang memiliki mekanisme kerja tuas sejenis (letak titik tumpu berada di antara beban dan kuasa) adalah …",
+            "img": "https://i.imgur.com/syJPVMS.png",
+            "options": [
+                  "1 dan 2",
+                  "2 dan 3",
+                  "3 dan 4",
+                  "1 dan 4"
+            ],
+            "key": "A"
       },
       {
-        id: 7,
-        q: "Perhatikan pola garis gaya listrik berikut! Muatan sumber A memiliki garis gaya keluar, sedangkan muatan sumber B memiliki garis gaya masuk. Interaksi yang terjadi jika kedua muatan didekatkan adalah...",
-        img: "",
-        options: ["saling tolak-menolak dengan kuat", "saling tarik-menarik karena beda jenis", "tidak ada gaya interaksi elektrostatik", "terjadi percikan api netral permanen"],
-        key: "B"
+            "id": 7,
+            "q": "Sebuah dongkrak hidrolik sederhana digunakan untuk mengangkat beban di bengkel seperti tampak pada skema berikut:\n\nJika gaya tekan sebesar $F_1 = 25 \\text{ N}$ diberikan pada penghisap kecil berluas penampang $A_1 = 10 \\text{ cm}^2$, beban maksimum yang mampu diangkat pada penghisap besar dengan luas penampang $A_2 = 60 \\text{ cm}^2$ adalah …",
+            "img": "https://i.imgur.com/vCdlmoF.png",
+            "options": [
+                  "$24 \\text{ N}$",
+                  "$150 \\text{ N}$",
+                  "$250 \\text{ N}$",
+                  "$600 \\text{ N}$"
+            ],
+            "key": "B"
       },
       {
-        id: 8,
-        q: "Sebuah muatan uji positif diletakkan di dekat muatan sumber negatif. Arah vektor kuat medan listrik pada titik tempat muatan uji tersebut berada adalah...",
-        img: "",
-        options: ["menjauhi muatan sumber negatif", "menuju / mendekati muatan sumber negatif", "tegak lurus terhadap garis hubung muatan", "berputar melingkar mengelilingi muatan"],
-        key: "B"
+            "id": 8,
+            "q": "Perhatikan ilustrasi mobil balap yang sedang melaju di lintasan uji berikut!\n\nMobil bermassa $1.500 \\text{ kg}$ tersebut melaju konstan dengan kelajuan $144 \\text{ km/jam}$. Untuk merancang sistem pengereman yang aman, teknisi perlu menghitung besar energi kinetik mobil saat melaju pada kelajuan tersebut, yaitu sebesar …",
+            "img": "https://i.imgur.com/jJnRvr0.png",
+            "options": [
+                  "$30 \\text{ kJ}$",
+                  "$60 \\text{ kJ}$",
+                  "$1.200 \\text{ kJ}$",
+                  "$12.000 \\text{ kJ}$"
+            ],
+            "key": "C"
       },
       {
-        id: 9,
-        q: "Potensial listrik di suatu titik yang berjarak tertentu dari muatan sumber bergantung pada besar muatan dan jaraknya. Jika usaha sebesar $60 \\text{ J}$ diperlukan untuk memindahkan muatan $4 \\text{ C}$, besar beda potensialnya adalah...",
-        img: "",
-        options: ["$10 \\text{ Volt}$", "$15 \\text{ Volt}$", "$20 \\text{ Volt}$", "$24 \\text{ Volt}$"],
-        key: "B"
+            "id": 9,
+            "q": "Perhatikan grafik perambatan gelombang transversal pada seutas tali berikut!\n\nBerdasarkan hasil pembacaan besaran fisis pada grafik di atas, seorang siswa menyusun empat pernyataan berikut:\n1. Jumlah gelombang yang terbentuk sepanjang grafik adalah 4 gelombang.\n2. Panjang satu gelombang ($\\lambda$) adalah $4 \\text{ m}$.\n3. Amplitudo simpangan gelombang adalah $2 \\text{ m}$.\n4. Periode gelombang yang merambat adalah 4 sekon.\nKombinasi besaran gelombang yang teridentifikasi secara tepat sesuai grafik adalah …",
+            "img": "https://i.imgur.com/O8WzPpE.png",
+            "options": [
+                  "1 dan 2",
+                  "1 dan 3",
+                  "2 dan 3",
+                  "2 dan 4"
+            ],
+            "key": "C"
       },
       {
-        id: 10,
-        q: "Analisis pernyataan berikut:\n\"Garis-garis gaya listrik tidak pernah saling berpotongan.\"\nAlasan fisis yang paling tepat untuk pernyataan tersebut adalah...",
-        img: "",
-        options: ["karena garis gaya listrik selalu berbentuk lingkaran tertutup", "karena di setiap titik medan listrik hanya memiliki satu arah vektor unik", "karena muatan sejenis selalu menolak garis gaya di sekitarnya", "karena besarnya energi potensial selalu konstan di segala titik"],
-        key: "B"
+            "id": 10,
+            "q": "Seorang pembicara berbicara dengan volume suara yang sama di dua lokasi berbeda, yakni di dalam ruang kelas tertutup dan di lapangan terbuka. Hasil pengamatan menunjukkan suara di dalam kelas terdengar jauh lebih nyaring. Evaluasi yang paling tepat untuk menjelaskan fenomena akustik tersebut adalah …",
+            "img": "",
+            "options": [
+                  "Suasana di lapangan selalu lebih bising sehingga meredam gelombang bunyi",
+                  "Di dalam ruang kelas terdapat lebih banyak sumber bunyi tambahan",
+                  "Dinding pantul di lapangan berada sangat jauh sehingga terjadi gema",
+                  "Dinding kelas berada dekat dengan sumber bunyi sehingga bunyi pantul memperkuat bunyi asli"
+            ],
+            "key": "D"
       },
       {
-        id: 11,
-        q: "Sebuah magnet batang dipotong menjadi tiga bagian sama panjang secara melintang. Pernyataan yang tepat mengenai kutub potongan bagian tengah adalah...",
-        img: "",
-        options: ["hanya memiliki kutub utara saja di kedua ujungnya", "kehilangan sifat kemagnetannya secara total", "tetap memiliki kutub utara dan kutub selatan lengkap", "berubah menjadi bermuatan listrik statis negatif"],
-        key: "C"
+            "id": 11,
+            "q": "Dalam percobaan optika geometri, sebuah benda diletakkan tegak pada jarak $20 \\text{ cm}$ di depan cermin cekung yang memiliki jari-jari kelengkungan $30 \\text{ cm}$. Agar layar dapat menangkap bayangan nyata benda secara tajam, layar tersebut harus digeser pada jarak … dari cermin.",
+            "img": "",
+            "options": [
+                  "$20 \\text{ cm}$",
+                  "$30 \\text{ cm}$",
+                  "$45 \\text{ cm}$",
+                  "$60 \\text{ cm}$"
+            ],
+            "key": "D"
       },
       {
-        id: 12,
-        q: "Berdasarkan teori magnet elementer, sebuah besi tidak bersifat magnet ketika magnet elementernya tersusun dengan kondisi...",
-        img: "",
-        options: ["sejajar dan menghadap ke arah kutub utara bumi", "acak dan saling berlawanan arah sehingga meniadakan", "terkonsentrasi hanya di bagian ujung-ujung batang besi", "berputar terus-menerus membentuk lingkaran tertutup"],
-        key: "B"
+            "id": 12,
+            "q": "Dalam praktikum listrik statis, sebatang kaca netral digosokkan secara searah menggunakan kain sutera kering. Setelah penggosokan, batang kaca mampu menarik potongan-potongan kertas kecil karena bermuatan positif. Mekanisme mikroskopis perpindahan muatan yang menyebabkan peristiwa tersebut adalah …",
+            "img": "",
+            "options": [
+                  "Proton berpindah dari batang kaca menuju kain sutera",
+                  "Proton berpindah dari kain sutera menuju batang kaca",
+                  "Elektron berpindah dari batang kaca menuju kain sutera",
+                  "Elektron berpindah dari kain sutera menuju batang kaca"
+            ],
+            "key": "C"
       },
       {
-        id: 13,
-        q: "Kaca, kayu, dan aluminium tidak dapat ditarik oleh magnet dengan kuat karena bahan-bahan tersebut tergolong ke dalam kelompok material...",
-        img: "",
-        options: ["feromagnetik", "paramagnetik", "diamagnetik", "superkonduktor"],
-        key: "C"
+            "id": 13,
+            "q": "Perhatikan rangkaian listrik tertutup yang menggunakan sumber tegangan $E = 6 \\text{ V}$ dan dua hambatan identik susunan paralel berikut!\n\nJika hambatan dalam baterai diabaikan, besar kuat arus listrik total ($i$) yang keluar dari sumber tegangan untuk mengalir ke seluruh rangkaian adalah …",
+            "img": "https://i.imgur.com/Sic8r6J.png",
+            "options": [
+                  "$0,5 \\text{ A}$",
+                  "$1,0 \\text{ A}$",
+                  "$1,5 \\text{ A}$",
+                  "$2,0 \\text{ A}$"
+            ],
+            "key": "A"
       },
       {
-        id: 14,
-        q: "Berdasarkan kaidah tangan kanan untuk kawat berarus, jika ibu jari menunjukkan arah arus listrik ke atas, arah putaran keempat jari lainnya menyatakan arah...",
-        img: "",
-        options: ["gaya Lorentz pada kawat penghantar", "medan magnet melingkar di sekitar kawat", "kecepatan gerak elektron bebas di dalam kawat", "hambatan listrik total pada rangkaian luar"],
-        key: "B"
+            "id": 14,
+            "q": "Sebuah rumah tangga menggunakan setrika listrik berdaya $350 \\text{ watt}$ secara terus-menerus selama $2 \\text{ jam}$ untuk menyetrika pakaian. Besar energi listrik yang terpakai dan tercatat pada meteran PLN selama kegiatan tersebut adalah …",
+            "img": "",
+            "options": [
+                  "$0,174 \\text{ kWh}$",
+                  "$0,7 \\text{ kWh}$",
+                  "$122,5 \\text{ kWh}$",
+                  "$252 \\text{ kWh}$"
+            ],
+            "key": "B"
       },
       {
-        id: 15,
-        q: "Suatu elektromagnet dibuat dengan melilitkan kawat pada inti besi lunak. Agar kekuatan medan magnet yang dihasilkan semakin kuat, langkah yang paling tepat adalah...",
-        img: "",
-        options: ["mengurangi jumlah lilitan kawat dan memperkecil arus", "menambah jumlah lilitan kawat dan memperbesar arus listrik", "mengganti inti besi lunak dengan bahan kayu atau plastik", "memperpanjang kawat penghantar tanpa mengubah jumlah lilitan"],
-        key: "B"
+            "id": 15,
+            "q": "Perhatikan rangkaian elektromagnetik sederhana yang dilengkapi sebuah kompas di dekat ujung B batang besi AB berikut!\n\nKetika saklar (Sk) ditutup sehingga arus listrik mengalir pada kumparan, interaksi magnetik yang terjadi antara ujung batang besi B dan jarum kompas adalah …",
+            "img": "https://i.imgur.com/sQ2YrFk.png",
+            "options": [
+                  "B menjadi kutub magnet U, sehingga kutub U kompas menyimpang mendekati B",
+                  "B menjadi kutub magnet U, sehingga kutub S kompas menyimpang mendekati B",
+                  "B menjadi kutub magnet S, sehingga kutub S kompas menyimpang mendekati B",
+                  "B menjadi kutub magnet S, sehingga kutub U kompas menyimpang mendekati B"
+            ],
+            "key": "B"
       },
       {
-        id: 16,
-        q: "Perhatikan faktor-faktor berikut:\n(1) jumlah lilitan kumparan\n(2) kecepatan gerak magnet\n(3) kuat medan magnet\n(4) hambatan dalam kawat\nFaktor yang mempengaruhi besar GGL induksi menurut Hukum Faraday adalah...",
-        img: "",
-        options: ["(1), (2), dan (3)", "(1), (2), dan (4)", "(2), (3), dan (4)", "(1), (3), dan (4)"],
-        key: "A"
+            "id": 16,
+            "q": "Perhatikan ilustrasi perangkat kumparan dan magnet dalam percobaan kemagnetan berikut!\n\nSeorang siswa merancang sebuah alat pengangkat paku berbasis elektromagnetik. Dari empat usulan modifikasi berikut, variabel yang TIDAK akan memengaruhi kuat medan magnet yang dihasilkan kumparan berarus adalah mengubah …",
+            "img": "https://i.imgur.com/opB6Rlf.png",
+            "options": [
+                  "besar kuat arus listrik yang dialirkan",
+                  "jumlah lilitan kawat pada kumparan",
+                  "besar diameter/ukuran fisik kumparan tanpa mengubah lilitan dan arus",
+                  "penyisipan inti besi lunak ke dalam rongga kumparan"
+            ],
+            "key": "C"
       },
       {
-        id: 17,
-        q: "Sebuah generator listrik mengubah bentuk energi mekanik menjadi energi listrik. Prinsip fisika utama yang mendasari kerja alat tersebut adalah...",
-        img: "",
-        options: ["hukum Ohm tentang hubungan tegangan dan arus", "hukum Coulomb tentang interaksi muatan titik", "induksi elektromagnetik akibat perubahan fluks magnetik", "pemanasan joule akibat hambatan dalam kumparan"],
-        key: "C"
+            "id": 17,
+            "q": "Pada suatu malam purnama, pengamat astronomi melaporkan bahwa piringan Bulan perlahan-lahan meredup dan tampak kemerahan karena memasuki kerucut bayangan umbra Bumi. Konfigurasi posisi benda langit yang menyebabkan fenomena gerhana tersebut adalah …",
+            "img": "",
+            "options": [
+                  "Matahari – Bumi – Bulan",
+                  "Matahari – Bulan – Bumi",
+                  "Bumi – Bulan – Matahari",
+                  "Bulan – Matahari – Bumi"
+            ],
+            "key": "A"
       },
       {
-        id: 18,
-        q: "Mengapa jarum galvanometer menyimpang saat magnet digerakkan masuk ke dalam kumparan, tetapi diam ketika magnet berhenti di dalam kumparan?",
-        img: "",
-        options: ["karena perubahan fluks magnetik hanya terjadi saat ada gerakan relatif", "karena magnet kehilangan sifat kemagnetannya saat didiamkan", "karena arus searah tidak dapat dibaca oleh galvanometer diam", "karena hambatan kumparan meningkat drastis saat magnet berhenti"],
-        key: "A"
+            "id": 18,
+            "q": "Seorang petani menganalisis komposisi unsur hara pada karung pupuk urea yang memiliki rumus kimia $\\text{CO(NH}_2)_2$ sebelum diaplikasikan ke lahan pertanian. Unsur kimia berikut yang TIDAK terkandung di dalam molekul pupuk urea tersebut adalah …",
+            "img": "",
+            "options": [
+                  "karbon",
+                  "sulfur",
+                  "oksigen",
+                  "hidrogen"
+            ],
+            "key": "B"
       },
       {
-        id: 19,
-        q: "Pembangkit Listrik Tenaga Air (PLTA) memanfaatkan aliran air terjun untuk memutar turbin. Perubahan konversi energi yang terjadi secara berurutan adalah...",
-        img: "",
-        options: ["energi listrik $\\rightarrow$ energi mekanik $\\rightarrow$ energi potensial air", "energi potensial $\\rightarrow$ energi kinetik $\\rightarrow$ energi mekanik $\\rightarrow$ listrik", "energi kimia $\\rightarrow$ energi panas $\\rightarrow$ energi kinetik $\\rightarrow$ listrik", "energi surya $\\rightarrow$ energi angin $\\rightarrow$ energi mekanik $\\rightarrow$ listrik"],
-        key: "B"
+            "id": 19,
+            "q": "Dalam kegiatan uji sifat larutan di laboratorium, seorang siswa menguji cuka makan ($\\text{CH}_3\\text{COOH}$) menggunakan berbagai indikator dan alat uji elektrolit. Dari empat laporan hasil pengamatan siswa berikut, pernyataan yang KELIRU dan harus ditolak dalam laporan praktikum adalah …",
+            "img": "",
+            "options": [
+                  "Larutan memiliki cita rasa masam khas asam organik",
+                  "Larutannya mampu menghantarkan arus listrik lemah",
+                  "Jika kertas lakmus merah ditetesi cuka, warnanya berubah menjadi biru",
+                  "Jika kertas lakmus biru ditetesi cuka, warnanya berubah menjadi merah"
+            ],
+            "key": "C"
       },
       {
-        id: 20,
-        q: "Transformator step-up digunakan untuk menaikkan tegangan AC. Jika jumlah lilitan primer lebih sedikit daripada lilitan sekunder, analisis perbandingan tegangannya adalah...",
-        img: "",
-        options: ["tegangan sekunder lebih kecil daripada tegangan primer", "tegangan sekunder lebih besar daripada tegangan primer", "arus sekunder lebih besar daripada arus primer secara ideal", "frekuensi arus listrik sekunder berlipat ganda nilainya"],
-        key: "B"
+            "id": 20,
+            "q": "Dalam industri pangan dan rumah tangga, garam dapur murni tersusun atas ikatan ionik antara kation natrium ($\\text{Na}^+$) dan anion klorida ($\\text{Cl}^-$) dengan nama kimia Natrium Klorida. Penulisan rumus kimia senyawa tersebut pada label kemasan yang benar adalah …",
+            "img": "",
+            "options": [
+                  "$\\text{H}_2\\text{O}$",
+                  "$\\text{NH}_3$",
+                  "$\\text{NaCl}$",
+                  "$\\text{NH}_4\\text{Cl}$"
+            ],
+            "key": "C"
       },
       {
-        id: 21,
-        q: "Ketika seseorang berada di lingkungan bersuhu sangat dingin, tubuh merespons dengan melakukan vasokonstriksi pembuluh darah kulit dan menggigil. Tujuan utama respons fisiologis tersebut adalah...",
-        img: "",
-        options: ["meningkatkan penguapan keringat untuk mendinginkan tubuh", "menahan panas internal dan memproduksi panas metabolik otot", "menurunkan laju metabolisme basal seluler secara drastis", "mempercepat aliran darah perifer menuju ke permukaan kulit"],
-        key: "B"
+            "id": 21,
+            "q": "Perhatikan catatan hasil empat percobaan perubahan materi berikut ini:\n1. Kayu dibakar hingga berubah menjadi arang hitam.\n2. Sayur bersantan dibiarkan semalaman hingga menjadi basi.\n3. Air laut diuapkan di tambak hingga terbentuk kristal garam.\n4. Batang logam dipanaskan pada suhu tinggi hingga membara.\nKelompok percobaan yang hanya mengalami perubahan fisika tanpa membentuk zat baru ditunjukkan oleh nomor …",
+            "img": "",
+            "options": [
+                  "1 dan 2",
+                  "2 dan 3",
+                  "3 dan 4",
+                  "1 dan 3"
+            ],
+            "key": "C"
       },
       {
-        id: 22,
-        q: "Homeostasis adalah mekanisme penting bagi tubuh manusia. Arti penting dari kondisi homeostasis bagi kelangsungan hidup sel adalah...",
-        img: "",
-        options: ["menjaga lingkungan internal tetap stabil agar enzim bekerja optimal", "memastikan tubuh kebal terhadap segala jenis patogen infeksius", "mempercepat pertumbuhan fisik dan penambahan massa tulang", "menghilangkan kebutuhan tubuh terhadap asupan nutrisi luar"],
-        key: "A"
+            "id": 22,
+            "q": "Tim pengawas keamanan pangan menemukan produsen tahu nakal yang mencampurkan bahan kimia nonpangan agar tahu bertekstur sangat kenyal, tidak mudah hancur, dan awet berhari-hari, meskipun berisiko merusak ginjal dan hati konsumen. Bahan aditif berbahaya yang disalahgunakan dalam kasus tersebut adalah …",
+            "img": "",
+            "options": [
+                  "Dulsin",
+                  "Boraks",
+                  "Amarant",
+                  "Rhodamin B"
+            ],
+            "key": "B"
       },
       {
-        id: 23,
-        q: "Perhatikan alur umpan balik berikut:\nStimulus suhu panas $\\rightarrow$ Reseptor kulit $\\rightarrow$ Hipotalamus $\\rightarrow$ Efektor.\nRespons efektor yang dikirim oleh pusat kendali otak saat kepanasan adalah...",
-        img: "",
-        options: ["vasokonstriksi pembuluh darah dan kontraksi otot rangka", "vasodilatasi pembuluh darah kulit dan aktivasi kelenjar keringat", "peningkatan sekresi hormon adrenalin secara berlebihan", "penghentian total aktivitas kelenjar keringat di seluruh tubuh"],
-        key: "B"
+            "id": 23,
+            "q": "Penyalahgunaan narkotika jenis ganja secara berlebihan (overdosis) mengganggu kerja sistem saraf pusat dan sistem peredaran darah penggunanya. Dampak fisiologis negatif yang muncul pada tubuh akibat kondisi tersebut adalah …",
+            "img": "",
+            "options": [
+                  "frekuensi pernapasan menjadi sangat teratur dan stabil",
+                  "nafsu makan berkurang drastis disertai peningkatan fokus",
+                  "denyut nadi menjadi tidak teratur disertai gangguan koordinasi",
+                  "daya konsentrasi dan ketajaman memori meningkat tajam"
+            ],
+            "key": "C"
       },
       {
-        id: 24,
-        q: "Hipotermia adalah kondisi berbahaya ketika suhu tubuh turun di bawah $35^\\circ\\text{C}$. Gagalnya sistem homeostasis dalam kasus ini disebabkan oleh...",
-        img: "",
-        options: ["kelebihan produksi hormon insulin oleh kelenjar pankreas", "ketidakmampuan tubuh menghasilkan panas yang mengimbangi kehilangan panas", "penyumbatan pembuluh darah akibat kelebihan kadar kalsium", "peningkatan penguapan keringat yang terlampau cepat"],
-        key: "B"
+            "id": 24,
+            "q": "Perhatikan rangkaian tahapan respons daun tanaman putri malu (*Mimosa pudica*) pada gambar berikut!\n\nPerubahan posisi anak daun dari kondisi terbuka menjadi mengatup sesaat setelah disentuh jari membuktikan bahwa tumbuhan tersebut memiliki ciri kehidupan berupa …",
+            "img": "https://i.imgur.com/tKcXWhe.png",
+            "options": [
+                  "tumbuh dan berkembang",
+                  "berkembang biak secara vegetatif",
+                  "memerlukan nutrisi untuk fotosintesis",
+                  "peka terhadap rangsangan (iritabilitas)"
+            ],
+            "key": "D"
       },
       {
-        id: 25,
-        q: "Pusat pengendali utama (termostat biologis) yang mengatur suhu tubuh manusia terletak pada organ...",
-        img: "",
-        options: ["serebrum (otak besar)", "serebelum (otak kecil)", "hipotalamus (otak tengah)", "medula oblongata (sumsum lanjutan)"],
-        key: "C"
+            "id": 25,
+            "q": "Seorang siswa mengamati ciri-ciri morfologi beberapa spesies tumbuhan di kebun sekolah dan mencatat data berikut:\n1. Sistem perakaran tunggang\n2. Struktur batang bercabang-cabang\n3. Pertulangan daun sejajar\n4. Bagian mahkota bunga berjumlah 3 atau kelipatannya\nCiri morfologi yang menjadi dasar pengelompokan tumbuhan ke dalam kelas Dikotil (biji berkeping dua) ditunjukkan oleh nomor …",
+            "img": "",
+            "options": [
+                  "1 dan 2",
+                  "2 dan 3",
+                  "3 dan 4",
+                  "1 dan 4"
+            ],
+            "key": "A"
       },
       {
-        id: 26,
-        q: "Seseorang yang berolahraga berat di bawah terik matahari tanpa minum air akan mengalami peningkatan konsentrasi darah. Kelenjar pituitari merespons dengan memproduksi...",
-        img: "",
-        options: ["sedikit hormon ADH sehingga urine encer dan banyak", "banyak hormon ADH sehingga ginjal menyerap kembali air", "hormon insulin dalam jumlah besar untuk membakar lemak", "hormon kalsitonin untuk menurunkan kadar kalsium darah"],
-        key: "B"
+            "id": 26,
+            "q": "Di dalam ekosistem hutan hujan tropis ditemukan populasi rumput, kelinci, serigala, dan harimau yang saling terhubung dalam jaring-jaring makanan. Pola interaksi antarmakhluk hidup yang mendominasi aliran energi dari rumput hingga ke harimau tersebut adalah …",
+            "img": "",
+            "options": [
+                  "simbiosis",
+                  "antibiosis",
+                  "predasi",
+                  "kompetisi"
+            ],
+            "key": "C"
       },
       {
-        id: 27,
-        q: "Setelah seseorang mengonsumsi makanan manis berkarbohidrat tinggi, kadar glukosa darahnya meningkat. Hormon yang dilepaskan oleh pankreas untuk menormalkan kembali gula darah adalah...",
-        img: "",
-        options: ["glukagon, yang mengubah glikogen menjadi glukosa hati", "insulin, yang merangsang penyerapan glukosa oleh sel dan hati", "adrenalin, yang mempercepat denyut jantung dan pernapasan", "parathormon, yang meningkatkan kadar kalsium dalam darah"],
-        key: "B"
+            "id": 27,
+            "q": "Dalam program sekolah adiwiyata, siswa diminta merancang solusi pengelolaan limbah anorganik berdasarkan prinsip 3R (*Reduce, Reuse, Recycle*). Rancangan tindakan berikut yang paling tepat merepresentasikan penerapan prinsip *Reuse* (guna ulang) untuk menekan pencemaran lingkungan adalah …",
+            "img": "",
+            "options": [
+                  "menimbun sampah organik daun di dalam lubang biopori",
+                  "memanfaatkan kaleng susu bekas secara langsung menjadi wadah alat tulis/pensil",
+                  "menanami halaman sekolah dengan berbagai tanaman hias berbunga",
+                  "memilah sampah plastik dan sampah organik ke tempat sampah terpisah"
+            ],
+            "key": "B"
       },
       {
-        id: 28,
-        q: "Kadar kalsium darah yang terlalu rendah akan memicu kelenjar paratiroid melepaskan hormon PTH (Parathormon). Mekanisme aksi hormon PTH tersebut adalah...",
-        img: "",
-        options: ["mengendapkan kalsium berlebih dari darah ke dalam matriks tulang", "merangsang tulang melepaskan kalsium dan ginjal menyerap kalsium", "menghambat penyerapan kalsium di usus halus secara total", "mengubah kalsium menjadi jaringan lemak di bawah kulit"],
-        key: "B"
+            "id": 28,
+            "q": "Perluasan kawasan Hutan Tanaman Industri (HTI) yang hanya menanam satu jenis pohon komersial (monokultur) mengubah fungsi ekosistem hutan alami secara drastis. Dampak ekologis jangka panjang yang paling merugikan dari alih fungsi lahan tersebut adalah …",
+            "img": "",
+            "options": [
+                  "menyebarnya pusat-pusat industri ke wilayah pedesaan",
+                  "berkurangnya keanekaragaman hayati flora dan fauna asli",
+                  "tersedianya pasokan bahan baku kayu secara berkelanjutan",
+                  "terbukanya lapangan pekerjaan baru bagi penduduk lokal"
+            ],
+            "key": "B"
       },
       {
-        id: 29,
-        q: "Seseorang yang kekurangan hormon insulin mengalami penyakit diabetes melitus dengan gejala sering buang air kecil. Analisis penyebab utama gejala tersebut adalah...",
-        img: "",
-        options: ["ginjal memproduksi banyak air karena suhu lingkungan dingin", "kelebihan glukosa dalam darah menarik air secara osmosis di nefron ginjal", "kelenjar pituitari berhenti memproduksi hormon ADH sepenuhnya", "terjadi infeksi saluran kemih akibat penurunan sistem kekebalan tubuh"],
-        key: "B"
+            "id": 29,
+            "q": "Perhatikan ilustrasi kebiasaan posisi duduk seorang pelajar saat membaca buku di meja belajar berikut!\n\nApabila kebiasaan duduk dengan punggung terlalu membungkuk ke depan tersebut berlangsung selama bertahun-tahun pada masa pertumbuhan, kelainan struktur tulang belakang yang akan dialami pelajar tersebut adalah …",
+            "img": "https://i.imgur.com/ZuSgbUN.png",
+            "options": [
+                  "artritis",
+                  "kifosis",
+                  "lordosis",
+                  "skoliosis"
+            ],
+            "key": "B"
       },
       {
-        id: 30,
-        q: "Perhatikan tabel hormon dan fungsinya berikut:\n1. Insulin: Menurunkan kadar gula darah\n2. Glukagon: Meningkatkan kadar gula darah\n3. ADH: Mengatur keseimbangan reabsorpsi air di ginjal\n4. Kalsitonin: Meningkatkan kadar kalsium darah dengan merusak tulang\nPasangan hormon dan fungsi yang SALAH ditunjukkan oleh nomor...",
-        img: "",
-        options: ["1", "2", "3", "4"],
-        key: "D"
+            "id": 30,
+            "q": "Dalam proses pencernaan kimiawi di usus halus, polipeptida hasil pencernaan lambung harus dipecah lebih lanjut menjadi asam amino agar dapat diserap oleh vili usus. Enzim yang disekresikan oleh pankreas untuk menjalankan fungsi katalitik tersebut adalah …",
+            "img": "",
+            "options": [
+                  "amilase",
+                  "pepsin",
+                  "tripsin",
+                  "lipase"
+            ],
+            "key": "C"
       },
       {
-        id: 31,
-        q: "Jalur perjalanan impuls pada gerak refleks ketika tangan tanpa sengaja menyentuh benda panas adalah...",
-        img: "",
-        options: ["Reseptor $\\rightarrow$ Saraf Sensoris $\\rightarrow$ Otak Besar $\\rightarrow$ Saraf Motoris $\\rightarrow$ Otot", "Reseptor $\\rightarrow$ Saraf Sensoris $\\rightarrow$ Sumsum Tulang Belakang $\\rightarrow$ Saraf Motoris $\\rightarrow$ Otot", "Reseptor $\\rightarrow$ Saraf Motoris $\\rightarrow$ Otak Kecil $\\rightarrow$ Saraf Sensoris $\\rightarrow$ Kelenjar", "Reseptor $\\rightarrow$ Sumsum Tulang Belakang $\\rightarrow$ Otak $\\rightarrow$ Saraf Penghubung $\\rightarrow$ Otot"],
-        key: "B"
+            "id": 31,
+            "q": "Perhatikan empat tahapan mekanisme pernapasan pada manusia berikut:\n1. Otot antartulang rusuk berkontraksi sehingga rongga dada terangkat\n2. Volume rongga dada dan paru-paru membesar\n3. Tekanan udara di dalam paru-paru meningkat lebih tinggi dari udara luar\n4. Udara dari atmosfer mengalir masuk ke dalam paru-paru\nUrutan tahapan yang tepat pada fase inspirasi pernapasan dada ditunjukkan oleh kombinasi nomor …",
+            "img": "",
+            "options": [
+                  "1, 2, 3",
+                  "1, 2, 4",
+                  "2, 3, 4",
+                  "3, 4, 1"
+            ],
+            "key": "B"
       },
       {
-        id: 32,
-        q: "Bagian sel saraf (neuron) yang berfungsi khusus untuk menerima impuls atau rangsangan dari sel saraf lain dan membawanya ke badan sel adalah...",
-        img: "",
-        options: ["akson (neurit)", "selubung mielin", "dendrit", "nodus ranvier"],
-        key: "C"
+            "id": 32,
+            "q": "Perhatikan daftar lima jenis gangguan pada sistem peredaran darah manusia berikut:\n1. Anemia\n2. Varises\n3. Leukemia\n4. Jantung koroner\n5. Hemofilia\nKelompok gangguan kesehatan yang disebabkan oleh kelainan komponen maupun sel-sel darah (bukan kelainan pembuluh darah atau otot jantung) adalah …",
+            "img": "",
+            "options": [
+                  "1, 2, 3",
+                  "1, 3, 5",
+                  "2, 4, 5",
+                  "3, 4, 5"
+            ],
+            "key": "B"
       },
       {
-        id: 33,
-        q: "Bagian mata manusia yang berfungsi mengatur jumlah cahaya yang masuk dengan cara memperbesar atau memperkecil bukaan pupil adalah...",
-        img: "",
-        options: ["kornea", "lensa mata", "iris", "retina"],
-        key: "C"
+            "id": 33,
+            "q": "Pada tubulus kontortus distal nefron ginjal terjadi tahap augmentasi berupa penambahan zat-zat sisa metabolisme seperti ion hidrogen, kalium, dan kreatinin yang tidak lagi diperlukan tubuh. Produk akhir yang terbentuk setelah melewati tahap tersebut adalah …",
+            "img": "",
+            "options": [
+                  "filtrat tubulus",
+                  "filtrat glomerulus",
+                  "urine sekunder",
+                  "urine sesungguhnya"
+            ],
+            "key": "D"
       },
       {
-        id: 34,
-        q: "Seseorang mengalami kesulitan melihat benda-benda yang berada pada jarak dekat (rabun dekat / hipermetropi). Kelainan tersebut terjadi karena...",
-        img: "",
-        options: ["lensa mata terlalu cembung dan bayangan jatuh di depan retina", "bola mata terlalu pendek dan bayangan jatuh di belakang retina", "kornea mata keruh dan menghalangi seluruh cahaya masuk", "otot siliaris kehilangan kemampuan berakomodasi selamanya"],
-        key: "B"
+            "id": 34,
+            "q": "Seorang siswa mengeluh tidak dapat membaca tulisan di papan tulis dari bangku belakang dengan jelas tanpa bantuan lensa cekung (negatif). Diagram jalannya berkas sinar cahaya yang tepat untuk menggambarkan kelainan refraksi mata siswa tersebut adalah …",
+            "img": "https://i.imgur.com/AThPZBF.png",
+            "options": [
+                  "Gambar A",
+                  "Gambar B",
+                  "Gambar C",
+                  "Gambar D"
+            ],
+            "key": "A"
       },
       {
-        id: 35,
-        q: "Telinga bagian dalam manusia selain berfungsi untuk pendengaran juga berperan penting dalam menjaga keseimbangan tubuh. Struktur khusus yang bertanggung jawab untuk fungsi keseimbangan tersebut adalah...",
-        img: "",
-        options: ["gendang telinga (membran timpani)", "tiga tulang pendengaran (martil, landasan, sanggurdi)", "saluran setengah lingkaran (kanal semisirkuler)", "saluran eustachius yang menghubungkan ke faring"],
-        key: "C"
+            "id": 35,
+            "q": "Perhatikan model struktur anatomi melintang daun dikotil berikut!\n\nBagian jaringan daun yang memiliki kepadatan organel kloroplas tertinggi sehingga berperan sebagai lokasi utama berlangsungnya reaksi fotosintesis ditunjukkan oleh nomor …",
+            "img": "https://i.imgur.com/tWDd0Gr.png",
+            "options": [
+                  "1 dan 2",
+                  "1 dan 3",
+                  "2 dan 3",
+                  "3 dan 4"
+            ],
+            "key": "C"
       },
       {
-        id: 36,
-        q: "Tempat terjadinya fertilisasi (pembuangan sel telur oleh sel sperma) pada sistem reproduksi wanita normal adalah di bagian...",
-        img: "",
-        options: ["ovarium (indung telur)", "tuba falopi (saluran telur)", "uterus (rahim)", "vagina"],
-        key: "B"
+            "id": 36,
+            "q": "Tumbuhan merespons perubahan faktor lingkungan melalui berbagai mekanisme gerak tropisme maupun nasti. Analisis pernyataan berikut mengenai hubungan arah rangsang dan respons gerak tumbuhan yang paling tepat adalah …",
+            "img": "",
+            "options": [
+                  "sulur tumbuhan markisa melilit penopang akibat rangsang cahaya matahari",
+                  "ujung batang tumbuhan bergerak tumbuh menjauhi datangnya cahaya matahari",
+                  "ujung akar utama tumbuh memanjang berlawanan dengan arah pusat bumi",
+                  "anak daun pohon turi mengatup secara serentak menjelang malam hari"
+            ],
+            "key": "D"
       },
       {
-        id: 37,
-        q: "Bahaya utama merokok bagi ibu hamil adalah terganggunya suplai nutrisi dan oksigen ke janin. Mekanisme utama penyebab gangguan tersebut adalah...",
-        img: "",
-        options: ["nikotin menyebabkan vasokonstriksi pembuluh darah plasenta", "karbon monoksida merusak sel saraf pusat ibu secara permanen", "tar menutupi seluruh permukaan dinding rahim bagian dalam", "panas rokok menaikkan suhu cairan amnion di dalam rahim"],
-        key: "A"
+            "id": 37,
+            "q": "Perhatikan desain dan hasil percobaan fotosintesis (uji Sachs) menggunakan daun yang sebagian permukaannya ditutup kertas timah/plaster berikut!\n\nSetelah daun direbus, dilarutkan klorofilnya dalam alkohol panas, dan ditetesi larutan lugol, bagian daun yang sebelumnya tertutup plester tetap berwarna putih pucat (gambar IIb). Kesimpulan evaluatif yang terbukti dari perbedaan warna tersebut adalah …",
+            "img": "https://i.imgur.com/P1LejDC.png",
+            "options": [
+                  "proses fotosintesis memerlukan gas oksigen dari udara",
+                  "reaksi fotosintesis memerlukan larutan lugol sebagai katalis",
+                  "pembentukan amilum dalam fotosintesis memerlukan cahaya matahari",
+                  "setiap bagian daun tetap menghasilkan amilum meskipun tanpa cahaya"
+            ],
+            "key": "C"
       },
       {
-        id: 38,
-        q: "Hormon utama yang dihasilkan oleh ovarium wanita untuk mengatur perkembangan ciri kelamin sekunder dan penebalan dinding rahim adalah...",
-        img: "",
-        options: ["testosteron dan progesteron", "estrogen dan progesteron", "oksitosin dan prolaktin", "somatotropin dan tiroksin"],
-        key: "B"
+            "id": 38,
+            "q": "Dalam suatu simulasi ekologi, Ririn melepaskan 8 kupu-kupu bersayap oranye terang, 8 kumbang kelapa hitam, 8 belalang sembah hijau, dan 8 kepik merah berbintik ke dalam ekosistem padang rumput hijau yang dihuni burung pemangsa serangga. Populasi hewan yang diprediksi memiliki tingkat kelulusan seleksi alam tertinggi di habitat tersebut adalah …",
+            "img": "",
+            "options": [
+                  "kupu-kupu bersayap oranye",
+                  "belalang sembah",
+                  "kumbang kelapa",
+                  "kepik"
+            ],
+            "key": "B"
       },
       {
-        id: 39,
-        q: "Perhatikan fungsi organ reproduksi wanita berikut:\n(1) menghasilkan sel ovum\n(2) tempat implantasi embrio\n(3) jalur keluarnya bayi saat lahir\nUrutan organ yang sesuai dengan fungsi (1), (2), dan (3) adalah...",
-        img: "",
-        options: ["Ovarium, Uterus, Vagina", "Tuba Falopi, Ovarium, Uterus", "Uterus, Vagina, Ovarium", "Vagina, Tuba Falopi, Uterus"],
-        key: "A"
+            "id": 39,
+            "q": "Seorang pemulia tanaman menyilangkan galur murni kacang berbiji bulat/licin dominan ($BB$) dengan galur murni kacang berbiji keriput resesif ($bb$). Apabila keturunan pertama ($F_1$) dibiarkan melakukan penyerbukan sendiri untuk menghasilkan keturunan kedua ($F_2$), persentase fenotipe yang akan muncul pada generasi $F_2$ adalah …",
+            "img": "",
+            "options": [
+                  "100% kacang berbiji keriput",
+                  "100% kacang berbiji licin",
+                  "25% kacang berbiji keriput",
+                  "50% kacang berbiji licin"
+            ],
+            "key": "C"
       },
       {
-        id: 40,
-        q: "Adaptasi unik pada anatomi bayi baru lahir adalah belum menyatunya tulang tengkorak (disebut fontanel/ubun-ubun). Fungsi biologis utama adaptasi tersebut adalah...",
-        img: "",
-        options: ["memudahkan bayi menyusu pada ibunya dengan fleksibilitas rahang", "memungkinkan tengkorak menyesuaikan diri saat melalui jalan lahir dan memberi ruang pertumbuhan otak", "mempercepat proses pendinginan suhu kepala saat demam tinggi", "mencegah masuknya infeksi bakteri melalui sela-sela kulit kepala"],
-        key: "B"
+            "id": 40,
+            "q": "Dalam upaya mengatasi krisis pangan dan malnutrisi protein di masa depan, para ahli bioteknologi menyeleksi mikroorganisme bersel satu yang dapat dibudidayakan secara massal dalam bioreaktor sebagai sumber Protein Sel Tunggal (PST):\n1. *Spirulina*\n2. *Escherichia coli*\n3. *Saccharomyces cerevisiae*\nKombinasi mikroorganisme yang tepat untuk dikembangkan sebagai bahan pangan sumber Protein Sel Tunggal yang aman dikonsumsi manusia adalah …",
+            "img": "",
+            "options": [
+                  "1 dan 2",
+                  "1 dan 3",
+                  "2 dan 3",
+                  "1, 2, dan 3"
+            ],
+            "key": "B"
       }
-    ];
+];
 
     // ========================================================
-    // 2. DATA SOAL ESAI
+    // 2. DATA SOAL ESAI (5 SOAL)
     // ========================================================
     const rawQuestionsEssay = [
       {
-        id: 1,
-        q: "(Soal 1)\nPada saat terjadi badai petir, kilatan cahaya sering kali diikuti oleh suara gemuruh yang datang beberapa detik kemudian. Jelaskan proses terbentuknya muatan listrik di dalam awan cumulonimbus secara fisis, serta evaluasilah mengapa bangunan tinggi wajib dipasang instalasi penangkal petir (grounding)!",
-        img: ""
+            "id": 1,
+            "q": "(Soal 1)\nSeorang petani menanam dua kelompok bibit cabai dengan varietas dan usia yang seragam di dua lokasi berbeda:\n- Lahan A: Mendapat penyinaran matahari penuh, saluran irigasi lancar, dan dipupuk secara berimbang sesuai dosis.\n- Lahan B: Berada di bawah naungan pohon rindang yang lebat, kondisi tanah kering berpasir, dan tidak pernah diberi pupuk tambahan.\nSetelah 4 minggu, tanaman di Lahan A tumbuh kokoh, berdaun hijau lebat, dan mulai berbunga, sedangkan tanaman di Lahan B tampak kerdil, berdaun pucat kekuningan, dan layu. Analisislah tiga faktor eksternal yang menyebabkan perbedaan pertumbuhan tersebut beserta mekanisme pengaruh masing-masing faktor terhadap fisiologi tumbuhan!",
+            "img": ""
       },
       {
-        id: 2,
-        q: "(Soal 2)\nSeorang siswa merancang eksperimen untuk membuat elektromagnet sederhana menggunakan paku besi, kawat tembaga, dan baterai $1.5 \\text{ Volt}$. Analisis tiga variabel utama yang dapat diubah oleh siswa tersebut untuk memperbesar kekuatan gaya magnet elektromagnetik yang dihasilkan, beserta alasannya!",
-        img: ""
+            "id": 2,
+            "q": "(Soal 2)\nPada masa pubertas, peningkatan aktivitas kelenjar keringat dan kelenjar minyak membuat area organ reproduksi remaja menjadi lebih lembap sehingga rentan terhadap infeksi jamur (*Candidiasis*) maupun bakteri penyebab gangguan kesehatan reproduksi. Evaluasilah kebiasaan sehari-hari yang berisiko memicu masalah tersebut, lalu rumuskan tiga langkah preventif yang tepat beserta alasan medisnya untuk menjaga kesehatan sistem reproduksi!",
+            "img": ""
       },
       {
-        id: 3,
-        q: "(Soal 3)\nSeseorang yang mendaki gunung berapi di ketinggian $4.000 \\text{ meter}$ di atas permukaan laut sering kali mengalami dehidrasi berat meskipun tidak merasa banyak berkeringat. Evaluasi bagaimana sistem saraf dan kelenjar pituitari merespons kondisi kekurangan cairan tersebut melalui mekanisme hormon ADH dan aktivitas ginjal!",
-        img: ""
+            "id": 3,
+            "q": "(Soal 3)\nHasil uji kesuburan tanah pada dua petak kebun menunjukkan bahwa Petak X yang memiliki populasi cacing tanah (*Lumbricus terrestris*) melimpah memiliki struktur tanah yang gembur, kemampuan menyerap air hujan tinggi, dan tanaman tumbuh subur tanpa banyak pupuk tambahan. Sebaliknya, Petak Y yang miskin cacing tanah memiliki tanah yang padat, keras, dan mudah tergenang air. Analisislah tiga peran ekologis dan biologis cacing tanah dalam mempertahankan serta meningkatkan kesuburan tanah pada Petak X!",
+            "img": ""
       },
       {
-        id: 4,
-        q: "(Soal 4)\nBerdasarkan prinsip kepadatan reseptor pada kulit manusia, rancanglah sebuah prosedur eksperimen sederhana (uji diskriminasi dua titik / *two-point discrimination*) untuk membuktikan bahwa ujung jari memiliki tingkat sensitivitas sentuhan yang jauh lebih tinggi dibandingkan dengan kulit bagian punggung tangan!",
-        img: ""
+            "id": 4,
+            "q": "(Soal 4)\nKetergantungan pada bahan bakar fosil serta meningkatnya volume limbah rumah tangga maupun pertanian memicu krisis energi dan pemanasan global. Sebagai bagian dari upaya transisi menuju pembangunan berkelanjutan (*sustainable development*), rancanglah rekomendasi penerapan dua contoh teknologi ramah lingkungan yang dapat diterapkan di lingkungan masyarakat beserta manfaat spesifiknya bagi kelestarian lingkungan!",
+            "img": ""
       },
       {
-        id: 5,
-        q: "(Soal 5)\nJelaskan struktur anatomi sistem reproduksi wanita tempat terjadinya fertilisasi, dan evaluasi mengapa paparan asap rokok pada ibu hamil dapat berisiko menyebabkan bayi lahir dengan berat badan rendah (BBLR) atau kelainan pertumbuhan!",
-        img: ""
+            "id": 5,
+            "q": "(Soal 5)\nDemi mengejar target panen yang tinggi dalam waktu singkat, sekelompok petani menggunakan pupuk anorganik (kimia) seperti urea dan NPK secara terus-menerus melebihi dosis anjuran tanpa diimbangi bahan organik. Evaluasilah kebijakan pemupukan tersebut dengan menjelaskan dua dampak negatif jangka panjang yang ditimbulkan bagi keseimbangan ekosistem tanah maupun perairan di sekitar lahan pertanian!",
+            "img": ""
       }
-    ];
+];
+
 
     let studentListCSV = [];
     let currentStudent = null;
