@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/mRmw86t.jpeg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekap Kehadiran Siswa - SMP Negeri 8 Cikarang Utara</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --card-soft: rgba(15, 23, 42, 0.65);
+      --accent: #3b82f6;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .header h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .header p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .print-meta {
+      display: none;
+      margin-top: 6px;
+      font-size: 0.88rem;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button, .btn-link {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    button:active, .btn-link:active { opacity: 0.8; }
+    .btn-secondary { background: #334155; }
+    .btn-success { background: var(--success); }
+    .btn-purple { background: #7c3aed; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .val-total { color: var(--accent); }
+    .val-hadir { color: var(--success); }
+    .val-belum { color: var(--warning); }
+    .val-persen { color: #a78bfa; }
+
+    .filter-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    input:focus, select:focus { border-color: var(--accent); }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .table-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 11px 14px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .pill-hadir {
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--success);
+    }
+
+    .pill-belum {
+      background: rgba(245, 158, 11, 0.18);
+      color: var(--warning);
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Area khusus cetak matriks landscape & TTD portrait */
+    #landscapePrintArea {
+      display: none;
+    }
+
+    .portrait-ttd-wrap {
+      display: none;
+    }
+
+    /* Modal Pengaturan Cetak */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 440px;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .modal-divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 8px;
+      margin-top: 2px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-close {
+      background: transparent;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      font-size: 1.1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .helper-hint {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .header-actions, .filter-card, .tabs, .modal-backdrop { display: none !important; }
+
+      /* MODE PORTRAIT (default seperti sebelumnya + TTD Wali Kelas) */
+      body.print-portrait .container { max-width: 100%; }
+      body.print-portrait .header,
+      body.print-portrait .stat-card,
+      body.print-portrait .table-card {
+        background: #fff;
+        color: #000;
+        border: 1px solid #cbd5e1;
+        box-shadow: none;
+      }
+      body.print-portrait .print-meta { display: block; }
+      body.print-portrait th { background: #f1f5f9; color: #000; }
+      body.print-portrait td { border-bottom: 1px solid #e2e8f0; color: #000; }
+      body.print-portrait .stat-value { color: #000 !important; }
+      body.print-portrait .pill { border: 1px solid #94a3b8; color: #000 !important; background: #f8fafc !important; }
+      body.print-portrait .footer-note { color: #334155; }
+      body.print-portrait #landscapePrintArea { display: none !important; }
+      body.print-portrait .portrait-ttd-wrap {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 18px;
+        font-size: 9pt;
+        color: #000;
+      }
+      .portrait-ttd-box {
+        text-align: center;
+        width: 220px;
+      }
+
+      /* MODE LANDSCAPE (Matriks Bulanan Satu Lembar Penuh) */
+      body.print-landscape .container { display: none !important; }
+      body.print-landscape #landscapePrintArea {
+        display: block !important;
+        width: 100%;
+        color: #000;
+        background: #fff;
+      }
+      .ls-kop {
+        text-align: center;
+        margin-bottom: 8px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+      }
+      .ls-kop h2 {
+        font-size: 12pt;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .ls-kop p {
+        font-size: 8.5pt;
+        margin-top: 2px;
+      }
+      table.ls-matrix {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 6.8pt;
+      }
+      table.ls-matrix th,
+      table.ls-matrix td {
+        border: 1px solid #334155;
+        padding: 2.5px 2px;
+        text-align: center;
+        color: #000;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      table.ls-matrix tr.ls-row-bulan th {
+        background: #e9d5ff !important;
+        font-weight: 800;
+        font-size: 7.5pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      table.ls-matrix tr.ls-row-header th {
+        background: #f3e8ff !important;
+        font-weight: 700;
+        font-size: 6.5pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      table.ls-matrix td.ls-col-nama,
+      table.ls-matrix th.ls-col-nama {
+        text-align: left;
+        padding-left: 4px;
+      }
+      .ls-mark-h { font-weight: 700; color: #065f46; }
+      .ls-mark-i { font-weight: 700; color: #0369a1; }
+      .ls-mark-s { font-weight: 700; color: #b45309; }
+      .ls-mark-a { font-weight: 700; color: #b91c1c; }
+      .ls-footer {
+        margin-top: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        font-size: 7.5pt;
+      }
+      .ls-ttd {
+        text-align: center;
+        width: 210px;
+      }
+    }
+  </style>
+  <style id="dynamicPageStyle">
+    @page { size: A4 portrait; margin: 14mm; }
+  </style>
+</head>
+<body class="print-portrait">
+
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>Rekap Kehadiran Siswa</h1>
+      <p id="statusInfo">Memuat data kehadiran...</p>
+      <div class="print-meta" id="printMeta"></div>
+    </div>
+    <div class="header-actions">
+      <button type="button" onclick="muatData()">Refresh</button>
+      <button type="button" class="btn-purple" onclick="bukaModalCetak()">🖨️ Menu Cetak</button>
+      <button type="button" class="btn-success" onclick="exportCSV()">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Siswa</div>
+      <div class="stat-value val-total" id="statTotal">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hadir</div>
+      <div class="stat-value val-hadir" id="statHadir">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Belum Absen</div>
+      <div class="stat-value val-belum" id="statBelum">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Persentase Hadir</div>
+      <div class="stat-value val-persen" id="statPersen">0%</div>
+    </div>
+  </div>
+
+  <div class="filter-card">
+    <div class="field">
+      <label for="filterModePeriode">Mode Periode</label>
+      <select id="filterModePeriode" onchange="ubahModePeriode()">
+        <option value="tanggal">Per Tanggal</option>
+        <option value="bulan">Per Bulan</option>
+        <option value="semua">Semua Tanggal</option>
+      </select>
+    </div>
+    <div class="field" id="boxTanggal">
+      <label for="filterTanggal">Tanggal</label>
+      <input type="date" id="filterTanggal" onchange="terapkanFilter()">
+    </div>
+    <div class="field" id="boxBulan" style="display:none;">
+      <label for="filterBulan">Bulan</label>
+      <input type="month" id="filterBulan" onchange="terapkanFilter()">
+    </div>
+    <div class="field">
+      <label for="filterKelas">Kelas</label>
+      <select id="filterKelas" onchange="terapkanFilter()">
+        <option value="">Semua Kelas</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="filterCari">Cari Nama / NISN</label>
+      <input type="text" id="filterCari" placeholder="Ketik nama atau NISN..." oninput="terapkanFilter()">
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button type="button" class="tab-btn active" id="tabHadir" onclick="gantiTab('hadir')">Sudah Hadir (<span id="countTabHadir">0</span>)</button>
+    <button type="button" class="tab-btn" id="tabBelum" onclick="gantiTab('belum')">Belum Hadir (<span id="countTabBelum">0</span>)</button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:48px;">No</th>
+            <th>NISN</th>
+            <th>Nama Siswa</th>
+            <th>Kelas</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tabelBody">
+          <tr><td colspan="6" class="empty-msg">Memuat data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="portrait-ttd-wrap" id="portraitTtdWrap"></div>
+
+  <div class="footer-note">
+    Sistem Absensi Digital • SMP Negeri 8 Cikarang Utara • Algian Manggara, S.Agr
+  </div>
+</div>
+
+<!-- Area Khusus Cetak Landscape (Matriks Tanggal Berbaris ke Kanan) -->
+<div id="landscapePrintArea"></div>
+
+<!-- Modal Menu Cetak -->
+<div class="modal-backdrop" id="modalCetak" onclick="tutupModalBackdrop(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Pengaturan Cetak Rekap</h2>
+      <button type="button" class="btn-close" onclick="tutupModalCetak()">✕</button>
+    </div>
+
+    <div class="field">
+      <label for="cetakOrientasi">Orientasi & Format Cetak</label>
+      <select id="cetakOrientasi" onchange="ubahOrientasiCetak()">
+        <option value="portrait">Portrait (Daftar Vertikal)</option>
+        <option value="landscape">Landscape (Matriks Bulanan ke Kanan • 1 Lembar Penuh)</option>
+      </select>
+      <div class="helper-hint" id="hintOrientasi">
+        Menampilkan daftar vertikal sesuai pilihan Sudah Hadir / Belum Hadir.
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="cetakBulan">Pilih Bulan</label>
+      <select id="cetakBulan">
+        <option value="">Semua Bulan</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="cetakKelas">Pilih Kelas</label>
+      <select id="cetakKelas">
+        <option value="">Semua Kelas</option>
+      </select>
+    </div>
+
+    <div class="field" id="fieldCetakTab">
+      <label for="cetakTab">Jenis Daftar</label>
+      <select id="cetakTab">
+        <option value="hadir">Sudah Hadir</option>
+        <option value="belum">Belum Hadir</option>
+      </select>
+    </div>
+
+    <div class="modal-divider">Tanda Tangan Wali Kelas</div>
+
+    <div class="field">
+      <label for="cetakNamaWaliKelas">Nama Wali Kelas</label>
+      <input type="text" id="cetakNamaWaliKelas" value="Algian Manggara, S.Agr" placeholder="Masukkan nama wali kelas">
+    </div>
+
+    <div class="field">
+      <label for="cetakNipWaliKelas">NIP Wali Kelas</label>
+      <input type="text" id="cetakNipWaliKelas" value="199404122025211046" placeholder="Masukkan NIP wali kelas">
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" onclick="tutupModalCetak()">Batal</button>
+      <button type="button" class="btn-purple" onclick="prosesCetak()">🖨️ Cetak Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://yvqnpccrbjtjjywzhahc.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2cW5wY2NyYmp0amp5d3poYWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU0NDk1MzcsImV4cCI6MjExMTAyNTUzN30.uxqWlimo1PRHlhFKO7hM9GCJ6WSWSQ4OxftVQSf-Npw";
+
+  let semuaSiswa = [];
+  let semuaAbsensi = [];
+  let daftarTampil = [];
+  let tabAktif = "hadir";
+
+  const NAMA_BULAN = [
+    "", "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  const BULAN_SINGKAT = [
+    "", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+    "Jul", "Agu", "Sep", "Okt", "Nov", "Des"
+  ];
+
+  function setDefaultPeriod() {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    document.getElementById('filterTanggal').value = `${yyyy}-${mm}-${dd}`;
+    document.getElementById('filterBulan').value = `${yyyy}-${mm}`;
+  }
+
+  // Konversi YYYY-MM-DD ke M/D/YYYY
+  function isoToMDY(isoDate) {
+    if (!isoDate) return "";
+    const [y, m, d] = isoDate.split("-");
+    return `${parseInt(m, 10)}/${parseInt(d, 10)}/${y}`;
+  }
+
+  // Parsing timestamp M/D/YYYY atau YYYY-MM-DD menjadi objek lengkap { year, month, day, ymKey, dateKey, labelPendek }
+  function parseTimestampFull(ts) {
+    if (!ts) return null;
+    const clean = String(ts).trim().split(" ")[0];
+    if (clean.includes("/")) {
+      const parts = clean.split("/");
+      if (parts.length >= 3) {
+        const m = parseInt(parts[0], 10);
+        const d = parseInt(parts[1], 10);
+        const y = parseInt(parts[2], 10);
+        if (y && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+          const ymKey = `${y}-${String(m).padStart(2, '0')}`;
+          const dateKey = `${ymKey}-${String(d).padStart(2, '0')}`;
+          return {
+            year: y,
+            month: m,
+            day: d,
+            ymKey,
+            dateKey,
+            labelPendek: `${d}-${BULAN_SINGKAT[m]}`
+          };
+        }
+      }
+    } else if (clean.includes("-")) {
+      const parts = clean.split("-");
+      if (parts.length >= 3) {
+        const y = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10);
+        const d = parseInt(parts[2], 10);
+        if (y && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
+          const ymKey = `${y}-${String(m).padStart(2, '0')}`;
+          const dateKey = `${ymKey}-${String(d).padStart(2, '0')}`;
+          return {
+            year: y,
+            month: m,
+            day: d,
+            ymKey,
+            dateKey,
+            labelPendek: `${d}-${BULAN_SINGKAT[m]}`
+          };
+        }
+      }
+    }
+    return null;
+  }
+
+  function parseTimestampYM(ts) {
+    return parseTimestampFull(ts);
+  }
+
+  function formatLabelBulan(ymKey) {
+    if (!ymKey) return "Semua Bulan";
+    const [y, m] = ymKey.split("-");
+    const namaBulan = NAMA_BULAN[parseInt(m, 10)] || m;
+    return `${namaBulan} ${y}`;
+  }
+
+  function formatNamaBulanSaja(ymKey) {
+    if (!ymKey) return "Semua Bulan";
+    const [, m] = ymKey.split("-");
+    return NAMA_BULAN[parseInt(m, 10)] || m;
+  }
+
+  function ubahModePeriode() {
+    const mode = document.getElementById('filterModePeriode').value;
+    document.getElementById('boxTanggal').style.display = mode === 'tanggal' ? 'block' : 'none';
+    document.getElementById('boxBulan').style.display = mode === 'bulan' ? 'block' : 'none';
+    terapkanFilter();
+  }
+
+  async function fetchSupabase(endpoint) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${endpoint}`, {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        "Accept": "application/json"
+      }
+    });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => "");
+      throw new Error(`HTTP ${res.status} ${errText}`);
+    }
+    return res.json();
+  }
+
+  async function muatData() {
+    const info = document.getElementById('statusInfo');
+    info.innerText = "Mengambil data dari server...";
+    try {
+      const [siswaRows, absenRows] = await Promise.all([
+        fetchSupabase("siswa?select=id_siswa,nama_siswa,kelas&limit=5000"),
+        fetchSupabase("absensi?select=id,timestamp,id_siswa,nama_siswa,status,kelas&order=id.desc&limit=10000")
+      ]);
+
+      semuaSiswa = siswaRows.map(s => ({
+        id_siswa: String(s.id_siswa || "").trim(),
+        nama_siswa: String(s.nama_siswa || "").trim(),
+        kelas: String(s.kelas || "").trim()
+      })).filter(s => s.id_siswa);
+
+      semuaAbsensi = absenRows.map(a => ({
+        id: a.id,
+        timestamp: String(a.timestamp || "").trim(),
+        id_siswa: String(a.id_siswa || "").trim(),
+        nama_siswa: String(a.nama_siswa || "").trim(),
+        status: String(a.status || "Hadir").trim(),
+        kelas: String(a.kelas || "").trim()
+      }));
+
+      isiDropdownKelas();
+      isiOpsiCetak();
+      terapkanFilter();
+
+      const waktu = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      info.innerText = `Terakhir diperbarui pukul ${waktu}`;
+    } catch (err) {
+      info.innerText = `Gagal memuat data (${err.message})`;
+    }
+  }
+
+  function isiDropdownKelas() {
+    const select = document.getElementById('filterKelas');
+    const nilaiLama = select.value;
+    const kelasSet = new Set(semuaSiswa.map(s => s.kelas).filter(Boolean));
+    const daftarKelas = Array.from(kelasSet).sort((a, b) => a.localeCompare(b, 'id', { numeric: true }));
+
+    select.innerHTML = `<option value="">Semua Kelas</option>`;
+    for (const k of daftarKelas) {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = k;
+      select.appendChild(opt);
+    }
+    if (kelasSet.has(nilaiLama)) select.value = nilaiLama;
+  }
+
+  function isiOpsiCetak() {
+    const selectBulan = document.getElementById('cetakBulan');
+    const selectKelas = document.getElementById('cetakKelas');
+    const bulanLama = selectBulan.value || document.getElementById('filterBulan').value;
+    const kelasLama = selectKelas.value || document.getElementById('filterKelas').value;
+
+    const ymSet = new Set();
+    const now = new Date();
+    ymSet.add(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`);
+
+    for (const row of semuaAbsensi) {
+      const parsed = parseTimestampYM(row.timestamp);
+      if (parsed) ymSet.add(parsed.ymKey);
+    }
+
+    const daftarBulan = Array.from(ymSet).sort().reverse();
+    selectBulan.innerHTML = `<option value="">Semua Bulan</option>`;
+    for (const ym of daftarBulan) {
+      const opt = document.createElement('option');
+      opt.value = ym;
+      opt.textContent = formatLabelBulan(ym);
+      selectBulan.appendChild(opt);
+    }
+    if (ymSet.has(bulanLama)) selectBulan.value = bulanLama;
+
+    const kelasSet = new Set(semuaSiswa.map(s => s.kelas).filter(Boolean));
+    const daftarKelas = Array.from(kelasSet).sort((a, b) => a.localeCompare(b, 'id', { numeric: true }));
+    selectKelas.innerHTML = `<option value="">Semua Kelas</option>`;
+    for (const k of daftarKelas) {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = k;
+      selectKelas.appendChild(opt);
+    }
+    if (kelasSet.has(kelasLama)) selectKelas.value = kelasLama;
+  }
+
+  function ubahOrientasiCetak() {
+    const orientasi = document.getElementById('cetakOrientasi').value;
+    const fieldTab = document.getElementById('fieldCetakTab');
+    const hint = document.getElementById('hintOrientasi');
+
+    if (orientasi === 'landscape') {
+      fieldTab.style.display = 'none';
+      hint.innerText = 'Format matriks bulanan 1 lembar penuh (Nama/Tanggal, Kelas, dan tanggal-tanggal berbaris ke kanan).';
+    } else {
+      fieldTab.style.display = 'block';
+      hint.innerText = 'Menampilkan daftar vertikal sesuai pilihan Sudah Hadir / Belum Hadir.';
+    }
+  }
+
+  function bukaModalCetak() {
+    isiOpsiCetak();
+    const mode = document.getElementById('filterModePeriode').value;
+    if (mode === 'bulan') {
+      document.getElementById('cetakBulan').value = document.getElementById('filterBulan').value;
+    } else if (mode === 'semua') {
+      document.getElementById('cetakBulan').value = "";
+    }
+    document.getElementById('cetakKelas').value = document.getElementById('filterKelas').value;
+    document.getElementById('cetakTab').value = tabAktif;
+    ubahOrientasiCetak();
+    document.getElementById('modalCetak').classList.add('open');
+  }
+
+  function tutupModalCetak() {
+    document.getElementById('modalCetak').classList.remove('open');
+  }
+
+  function tutupModalBackdrop(e) {
+    if (e.target.id === 'modalCetak') tutupModalCetak();
+  }
+
+  function ringkasKodeStatus(statusRaw) {
+    const s = String(statusRaw || '').trim().toUpperCase();
+    if (!s) return '';
+    if (s.includes('HADIR')) return 'H';
+    if (s.includes('IZIN')) return 'I';
+    if (s.includes('SAKIT')) return 'S';
+    if (s.includes('ALPA') || s.includes('ALFA')) return 'A';
+    return s.charAt(0);
+  }
+
+  function buildTtdHTML(namaWali, nipWali, isLandscape = false) {
+    const tanggalCetak = new Date().toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    const namaTampil = namaWali || "............................................";
+    const nipLine = nipWali ? `<div>NIP. ${nipWali}</div>` : `<div>NIP. .................................</div>`;
+
+    if (isLandscape) {
+      return `
+        <div class="ls-ttd">
+          <div>Cikarang Utara, ${tanggalCetak}</div>
+          <div style="margin-bottom:32px;">Wali Kelas</div>
+          <div style="text-decoration:underline;"><strong>${namaTampil}</strong></div>
+          ${nipLine}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="portrait-ttd-box">
+        <div>Cikarang Utara, ${tanggalCetak}</div>
+        <div style="margin-bottom:44px;">Wali Kelas</div>
+        <div style="text-decoration:underline;"><strong>${namaTampil}</strong></div>
+        ${nipLine}
+      </div>
+    `;
+  }
+
+  function buildLandscapeMatrixHTML(bulanDipilih, kelasDipilih, namaWali, nipWali) {
+    const siswaTarget = semuaSiswa
+      .filter(s => !kelasDipilih || s.kelas === kelasDipilih)
+      .sort((a, b) =>
+        a.kelas.localeCompare(b.kelas, 'id', { numeric: true }) ||
+        a.nama_siswa.localeCompare(b.nama_siswa, 'id')
+      );
+
+    const tanggalMap = new Map();
+    const absensiBySiswaTanggal = new Map();
+
+    for (const row of semuaAbsensi) {
+      if (kelasDipilih && row.kelas !== kelasDipilih) continue;
+      const parsed = parseTimestampFull(row.timestamp);
+      if (!parsed) continue;
+      if (bulanDipilih && parsed.ymKey !== bulanDipilih) continue;
+
+      if (!tanggalMap.has(parsed.dateKey)) {
+        tanggalMap.set(parsed.dateKey, parsed);
+      }
+
+      const key = `${row.id_siswa}__${parsed.dateKey}`;
+      if (!absensiBySiswaTanggal.has(key)) {
+        absensiBySiswaTanggal.set(key, ringkasKodeStatus(row.status));
+      }
+    }
+
+    const daftarTanggal = Array.from(tanggalMap.values()).sort((a, b) =>
+      a.dateKey.localeCompare(b.dateKey)
+    );
+
+    const labelBulanHeader = bulanDipilih ? formatNamaBulanSaja(bulanDipilih) : "Semua Bulan";
+    const labelBulanLengkap = bulanDipilih ? formatLabelBulan(bulanDipilih) : "Semua Bulan";
+    const labelKelas = kelasDipilih ? `Kelas ${kelasDipilih}` : "Semua Kelas";
+    const totalColTanggal = Math.max(daftarTanggal.length, 1);
+
+    const fontSizePt = daftarTanggal.length > 24 ? "5.8pt" : (daftarTanggal.length > 16 ? "6.3pt" : "7pt");
+    const namaWidth = daftarTanggal.length > 22 ? "20%" : "24%";
+
+    let headerTanggalCells = "";
+    if (daftarTanggal.length === 0) {
+      headerTanggalCells = `<th>Belum ada data tanggal</th>`;
+    } else {
+      headerTanggalCells = daftarTanggal.map(t => `<th>${t.labelPendek}</th>`).join("");
+    }
+
+    let bodyRows = "";
+    if (siswaTarget.length === 0) {
+      bodyRows = `<tr><td colspan="${totalColTanggal + 7}">Tidak ada data siswa untuk kelas terpilih.</td></tr>`;
+    } else {
+      bodyRows = siswaTarget.map((s, idx) => {
+        let countH = 0, countI = 0, countS = 0, countA = 0;
+        let selTanggal = "";
+
+        if (daftarTanggal.length === 0) {
+          selTanggal = `<td>-</td>`;
+        } else {
+          selTanggal = daftarTanggal.map(t => {
+            const kode = absensiBySiswaTanggal.get(`${s.id_siswa}__${t.dateKey}`) || "";
+            if (kode === 'H') countH++;
+            else if (kode === 'I') countI++;
+            else if (kode === 'S') countS++;
+            else if (kode === 'A') countA++;
+
+            const cls =
+              kode === 'H' ? 'ls-mark-h' :
+              kode === 'I' ? 'ls-mark-i' :
+              kode === 'S' ? 'ls-mark-s' :
+              kode === 'A' ? 'ls-mark-a' : '';
+
+            return `<td class="${cls}">${kode}</td>`;
+          }).join("");
+        }
+
+        return `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="ls-col-nama"><strong>${s.nama_siswa}</strong></td>
+            <td>${s.kelas}</td>
+            ${selTanggal}
+            <td><strong>${countH}</strong></td>
+            <td>${countI}</td>
+            <td>${countS}</td>
+            <td>${countA}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    return `
+      <div class="ls-kop">
+        <h2>REKAPITULASI KEHADIRAN SISWA BULANAN — SMP NEGERI 8 CIKARANG UTARA</h2>
+        <p>Periode: <strong>${labelBulanLengkap}</strong> &nbsp;|&nbsp; Kelas: <strong>${labelKelas}</strong></p>
+      </div>
+      <table class="ls-matrix" style="font-size:${fontSizePt};">
+        <thead>
+          <tr class="ls-row-bulan">
+            <th style="width:24px;" rowspan="2">No</th>
+            <th class="ls-col-nama" style="width:${namaWidth};">Bulan</th>
+            <th style="width:38px;"></th>
+            <th colspan="${totalColTanggal}">${labelBulanHeader}</th>
+            <th colspan="4" style="width:68px;">Jumlah</th>
+          </tr>
+          <tr class="ls-row-header">
+            <th class="ls-col-nama">Nama/Tanggal</th>
+            <th>Kelas</th>
+            ${headerTanggalCells}
+            <th style="width:17px;">H</th>
+            <th style="width:17px;">I</th>
+            <th style="width:17px;">S</th>
+            <th style="width:17px;">A</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${bodyRows}
+        </tbody>
+      </table>
+      <div class="ls-footer">
+        <div>
+          <strong>Keterangan:</strong> H = Hadir, I = Izin, S = Sakit, A = Alpa (Kosong = Belum tercatat)
+        </div>
+        ${buildTtdHTML(namaWali, nipWali, true)}
+      </div>
+    `;
+  }
+
+  function prosesCetak() {
+    const orientasi = document.getElementById('cetakOrientasi').value;
+    const bulanDipilih = document.getElementById('cetakBulan').value;
+    const kelasDipilih = document.getElementById('cetakKelas').value;
+    const jenisDipilih = document.getElementById('cetakTab').value;
+    const namaWali = document.getElementById('cetakNamaWaliKelas').value.trim();
+    const nipWali = document.getElementById('cetakNipWaliKelas').value.trim();
+    const pageStyle = document.getElementById('dynamicPageStyle');
+
+    if (orientasi === 'landscape') {
+      pageStyle.innerHTML = `@page { size: A4 landscape; margin: 8mm; }`;
+      document.body.classList.remove('print-portrait');
+      document.body.classList.add('print-landscape');
+
+      const area = document.getElementById('landscapePrintArea');
+      area.innerHTML = buildLandscapeMatrixHTML(bulanDipilih, kelasDipilih, namaWali, nipWali);
+
+      tutupModalCetak();
+      setTimeout(() => window.print(), 150);
+      return;
+    }
+
+    // Mode Portrait (tetap seperti sebelumnya + TTD Wali Kelas)
+    pageStyle.innerHTML = `@page { size: A4 portrait; margin: 14mm; }`;
+    document.body.classList.remove('print-landscape');
+    document.body.classList.add('print-portrait');
+
+    if (bulanDipilih) {
+      document.getElementById('filterModePeriode').value = 'bulan';
+      document.getElementById('filterBulan').value = bulanDipilih;
+    } else {
+      document.getElementById('filterModePeriode').value = 'semua';
+    }
+    ubahModePeriode();
+
+    document.getElementById('filterKelas').value = kelasDipilih;
+    gantiTab(jenisDipilih);
+
+    document.getElementById('portraitTtdWrap').innerHTML = buildTtdHTML(namaWali, nipWali, false);
+
+    const labelBulan = bulanDipilih ? formatLabelBulan(bulanDipilih) : "Semua Bulan";
+    const labelKelas = kelasDipilih ? `Kelas ${kelasDipilih}` : "Semua Kelas";
+    const labelJenis = jenisDipilih === 'hadir' ? "Daftar Sudah Hadir" : "Daftar Belum Hadir";
+    document.getElementById('printMeta').innerText =
+      `SMP Negeri 8 Cikarang Utara • ${labelJenis} • ${labelBulan} • ${labelKelas}`;
+
+    tutupModalCetak();
+    setTimeout(() => window.print(), 150);
+  }
+
+  function gantiTab(tab) {
+    tabAktif = tab;
+    document.getElementById('tabHadir').classList.toggle('active', tab === 'hadir');
+    document.getElementById('tabBelum').classList.toggle('active', tab === 'belum');
+    terapkanFilter();
+  }
+
+  function terapkanFilter() {
+    const modePeriode = document.getElementById('filterModePeriode').value;
+    const tglIso = document.getElementById('filterTanggal').value;
+    const tglTarget = isoToMDY(tglIso);
+    const bulanTarget = document.getElementById('filterBulan').value;
+    const kelasFilter = document.getElementById('filterKelas').value;
+    const cari = document.getElementById('filterCari').value.trim().toLowerCase();
+
+    const siswaKelas = semuaSiswa.filter(s => !kelasFilter || s.kelas === kelasFilter);
+
+    const cocokPeriode = (row) => {
+      if (modePeriode === 'tanggal') {
+        return !tglTarget || row.timestamp === tglTarget;
+      }
+      if (modePeriode === 'bulan') {
+        if (!bulanTarget) return true;
+        const parsed = parseTimestampYM(row.timestamp);
+        return parsed && parsed.ymKey === bulanTarget;
+      }
+      return true;
+    };
+
+    const rowsPeriodeKelas = semuaAbsensi.filter(row => {
+      if (!cocokPeriode(row)) return false;
+      if (kelasFilter && row.kelas !== kelasFilter) return false;
+      return true;
+    });
+
+    let daftarHadirAll = [];
+    const hadirIdsSet = new Set();
+
+    if (modePeriode === 'tanggal') {
+      const hadirMap = new Map();
+      for (const row of rowsPeriodeKelas) {
+        if (!hadirMap.has(row.id_siswa)) {
+          hadirMap.set(row.id_siswa, row);
+        }
+        hadirIdsSet.add(row.id_siswa);
+      }
+      daftarHadirAll = Array.from(hadirMap.values()).sort((a, b) =>
+        a.kelas.localeCompare(b.kelas, 'id', { numeric: true }) || a.nama_siswa.localeCompare(b.nama_siswa, 'id')
+      );
+    } else {
+      for (const row of rowsPeriodeKelas) {
+        hadirIdsSet.add(row.id_siswa);
+      }
+      daftarHadirAll = [...rowsPeriodeKelas];
+    }
+
+    const labelPeriodeBelum =
+      modePeriode === 'tanggal' ? (tglTarget || "-") :
+      modePeriode === 'bulan' ? formatLabelBulan(bulanTarget) :
+      "Semua Periode";
+
+    const daftarBelumAll = siswaKelas
+      .filter(s => !hadirIdsSet.has(s.id_siswa))
+      .map(s => ({
+        id_siswa: s.id_siswa,
+        nama_siswa: s.nama_siswa,
+        kelas: s.kelas,
+        timestamp: labelPeriodeBelum,
+        status: "Belum Absen"
+      }))
+      .sort((a, b) =>
+        a.kelas.localeCompare(b.kelas, 'id', { numeric: true }) || a.nama_siswa.localeCompare(b.nama_siswa, 'id')
+      );
+
+    const total = siswaKelas.length;
+    const hadirUnik = hadirIdsSet.size;
+    const belum = Math.max(0, total - hadirUnik);
+    const persen = total > 0 ? Math.round((hadirUnik / total) * 100) : 0;
+
+    document.getElementById('statTotal').innerText = total;
+    document.getElementById('statHadir').innerText = hadirUnik;
+    document.getElementById('statBelum').innerText = belum;
+    document.getElementById('statPersen').innerText = `${persen}%`;
+    document.getElementById('countTabHadir').innerText = daftarHadirAll.length;
+    document.getElementById('countTabBelum').innerText = daftarBelumAll.length;
+
+    const sumber = tabAktif === 'hadir' ? daftarHadirAll : daftarBelumAll;
+    daftarTampil = sumber.filter(item =>
+      !cari ||
+      item.nama_siswa.toLowerCase().includes(cari) ||
+      item.id_siswa.toLowerCase().includes(cari)
+    );
+
+    renderTabel();
+  }
+
+  function renderTabel() {
+    const tbody = document.getElementById('tabelBody');
+    if (daftarTampil.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" class="empty-msg">Tidak ada data untuk filter ini.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = daftarTampil.map((item, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td>${item.id_siswa}</td>
+        <td><strong>${item.nama_siswa}</strong></td>
+        <td>${item.kelas}</td>
+        <td>${item.timestamp}</td>
+        <td>
+          <span class="pill ${item.status === 'Hadir' ? 'pill-hadir' : 'pill-belum'}">
+            ${item.status}
+          </span>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function exportCSV() {
+    if (daftarTampil.length === 0) {
+      alert("Tidak ada data untuk diekspor.");
+      return;
+    }
+    const header = ["No", "NISN", "Nama Siswa", "Kelas", "Tanggal", "Status"];
+    const lines = [header.join(",")];
+
+    daftarTampil.forEach((item, idx) => {
+      const row = [
+        idx + 1,
+        `"${item.id_siswa}"`,
+        `"${item.nama_siswa.replace(/"/g, '""')}"`,
+        `"${item.kelas}"`,
+        `"${item.timestamp}"`,
+        `"${item.status}"`
+      ];
+      lines.push(row.join(","));
+    });
+
+    const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const mode = document.getElementById('filterModePeriode').value;
+    const periodeSlug =
+      mode === 'tanggal' ? (document.getElementById('filterTanggal').value || "tanggal") :
+      mode === 'bulan' ? (document.getElementById('filterBulan').value || "bulan") :
+      "semua-periode";
+    const kls = document.getElementById('filterKelas').value || "semua-kelas";
+    a.href = url;
+    a.download = `rekap-absensi-${periodeSlug}-${kls}-${tabAktif}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  window.onload = () => {
+    setDefaultPeriod();
+    muatData();
+    setInterval(muatData, 30000);
+  };
+</script>
+
+</body>
+</html>
