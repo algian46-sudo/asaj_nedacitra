@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Utama ASAJ — SMP Negeri 8 Cikarang Utara</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/mRmw86t.jpeg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-base: #f8faff;
+      --glass-bg: rgba(255, 255, 255, 0.78);
+      --glass-bg-strong: rgba(255, 255, 255, 0.94);
+      --glass-border: rgba(255, 255, 255, 0.92);
+      --glass-shadow: 0 12px 40px rgba(99, 102, 241, 0.12);
+      --primary-grad: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+      --primary-grad-hover: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+      --text-main: #1e1b4b;
+      --text-muted: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffffff 0%, #eef2ff 30%, #fae8ff 70%, #fce7f3 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Animated Blobs */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.65;
+      pointer-events: none;
+      animation: floatOrb 12s infinite alternate ease-in-out;
+    }
+    .orb-1 {
+      width: 380px;
+      height: 380px;
+      background: #93c5fd;
+      top: -90px;
+      left: -90px;
+    }
+    .orb-2 {
+      width: 420px;
+      height: 420px;
+      background: #f9a8d4;
+      bottom: -110px;
+      right: -90px;
+      animation-delay: -4s;
+    }
+    .orb-3 {
+      width: 340px;
+      height: 340px;
+      background: #c4b5fd;
+      top: 38%;
+      left: 52%;
+      animation-delay: -8s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(32px, -42px) scale(1.1); }
+    }
+
+    .text-grad-asaj {
+      background: var(--primary-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-grad-primary {
+      background: var(--primary-grad);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .btn-grad-primary:hover {
+      background: var(--primary-grad-hover);
+      box-shadow: 0 12px 26px rgba(236, 72, 153, 0.32);
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .portal-card {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portal-card:hover {
+      background: var(--glass-bg-strong);
+      border-color: rgba(139, 92, 246, 0.55);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 42px -12px rgba(139, 92, 246, 0.25);
+    }
+
+    .portal-card:active {
+      transform: translateY(-2px) scale(0.99);
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-entry {
+      animation: fadeSlideUp 0.45s ease forwards;
+    }
+  </style>
+</head>
+<body class="text-[#1e1b4b] antialiased selection:bg-pink-500 selection:text-white flex flex-col justify-between">
+
+  <!-- Background Orbs -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- Top Navbar -->
+  <header class="sticky top-0 z-30 bg-white/75 backdrop-blur-xl border-b border-white/80 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      
+      <!-- Brand Identity -->
+      <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl btn-grad-primary flex items-center justify-center shrink-0">
+            <i data-lucide="layout-grid" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-grad-asaj leading-tight">
+              PORTAL TERPADU ASAJ
+            </h1>
+            <p class="text-xs text-[#475569] font-semibold">SMP Negeri 8 Cikarang Utara (NEDACITRA)</p>
+          </div>
+        </div>
+
+        <!-- Mobile Clock Badge -->
+        <span id="mobileClock" class="sm:hidden px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-500/10 text-indigo-950 border border-indigo-200/80">
+          --:--
+        </span>
+      </div>
+
+      <!-- Right Controls: Search & Clock -->
+      <div class="flex items-center gap-2.5 w-full sm:w-auto">
+        <div class="relative flex-1 sm:w-64">
+          <i data-lucide="search" class="w-4 h-4 text-violet-600 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input 
+            type="text" 
+            id="searchMenu" 
+            oninput="filterMenus()"
+            placeholder="Cari layanan ASAJ..." 
+            class="w-full pl-10 pr-4 py-2 rounded-2xl bg-white/90 border border-indigo-200/90 text-xs sm:text-sm text-[#1e1b4b] font-medium placeholder-slate-400 focus:outline-none focus:border-violet-500 focus:ring-4 focus:ring-violet-500/15 transition"
+          />
+        </div>
+
+        <div class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/85 border border-indigo-200/80 text-xs font-extrabold text-[#1e1b4b] shadow-sm shrink-0">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-pink-600"></i>
+          <span id="desktopClock">--:--:-- WIB</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-10 flex-1 relative z-10 space-y-8">
+
+    <!-- Hero Welcome Banner -->
+    <section class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden animate-entry">
+      <div class="absolute -right-12 -top-12 w-56 h-56 rounded-full bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-pink-400/20 blur-2xl pointer-events-none"></div>
+      
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div class="space-y-2.5 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-indigo-500/10 text-indigo-950 border border-indigo-300/70">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            Sistem Informasi Asesmen Sumatif Akhir Jenjang
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#1e1b4b] tracking-tight leading-tight">
+            Pusat Kendali & Akses Layanan <span class="text-grad-asaj">ASAJ Nedacitra</span>
+          </h2>
+          <p class="text-sm text-[#475569] font-medium leading-relaxed">
+            Pilih modul layanan di bawah ini untuk mengelola administrasi ujian, pencatatan kehadiran peserta, akses soal ujian, maupun pemantauan pengawas secara real-time dalam satu jendela.
+          </p>
+        </div>
+
+        <!-- Quick Info Pill -->
+        <div class="flex flex-wrap sm:flex-nowrap lg:flex-col gap-2.5 shrink-0">
+          <div class="px-4 py-3 rounded-2xl bg-white/85 border border-indigo-200/80 flex items-center gap-3 shadow-sm">
+            <div class="w-9 h-9 rounded-xl bg-violet-500/15 text-violet-700 flex items-center justify-center">
+              <i data-lucide="layers" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-[#475569] uppercase">Total Modul</p>
+              <p class="text-sm font-extrabold text-[#1e1b4b]">5 Layanan Terintegrasi</p>
+            </div>
+          </div>
+          <div class="px-4 py-3 rounded-2xl bg-white/85 border border-emerald-200/80 flex items-center gap-3 shadow-sm">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-700 flex items-center justify-center">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-bold text-[#475569] uppercase">Mode Navigasi</p>
+              <p class="text-sm font-extrabold text-emerald-900">Buka di Tab Sama</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid Menu Layanan -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm sm:text-base font-extrabold text-[#1e1b4b] flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-pink-600"></i>
+          <span>Pilih Layanan ASAJ</span>
+        </h3>
+        <span id="menuCountBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-white/80 text-[#475569] border border-indigo-200/80">
+          5 Modul Tersedia
+        </span>
+      </div>
+
+      <div id="portalGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
+        
+        <!-- 1. Dashboard ASAJ_Nedacitra (Highlight Card - Span 3) -->
+        <a 
+          href="https://algian46-sudo.github.io/asaj_nedacitra/asaj_dashboard_soal.html"
+          data-keywords="dashboard soal ujian hasil nilai kkm asaj nedacitra"
+          class="portal-card glass-card rounded-3xl p-6 sm:p-7 lg:col-span-3 flex flex-col justify-between group relative overflow-hidden cursor-pointer block no-underline"
+        >
+          <div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-gradient-to-tr from-blue-500/15 via-violet-500/15 to-pink-500/15 group-hover:scale-125 transition-transform duration-500 pointer-events-none"></div>
+          
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="w-13 h-13 p-3 rounded-2xl btn-grad-primary text-white flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="book-open-check" class="w-7 h-7"></i>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-500/15 text-indigo-950 border border-indigo-300/80">
+                Portal Peserta & Nilai
+              </span>
+            </div>
+
+            <h4 class="text-xl sm:text-2xl font-extrabold text-[#1e1b4b] group-hover:text-violet-700 transition-colors">
+              Dashboard ASAJ_Nedacitra
+            </h4>
+            <p class="text-xs sm:text-sm text-[#475569] font-medium mt-2 leading-relaxed">
+              Akses utama pemilihan mata pelajaran ujian aktif per rombel serta rekapitulasi ketuntasan nilai (KKM) siswa secara langsung.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-indigo-950/10 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-violet-700">Buka Portal Soal & Hasil</span>
+            <div class="w-9 h-9 rounded-full bg-violet-500/10 group-hover:btn-grad-primary flex items-center justify-center transition-all">
+              <i data-lucide="arrow-right" class="w-4 h-4 text-violet-700 group-hover:text-white group-hover:translate-x-0.5 transition-all"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2. Monitoring Ujian_Nedacitra (Highlight Card - Span 3) -->
+        <a 
+          href="https://algian46-sudo.github.io/asaj_nedacitra/asaj_monitoring_ujian.html"
+          data-keywords="monitoring ujian pelanggaran pengawas live sync nedacitra"
+          class="portal-card glass-card rounded-3xl p-6 sm:p-7 lg:col-span-3 flex flex-col justify-between group relative overflow-hidden cursor-pointer block no-underline"
+        >
+          <div class="absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-gradient-to-tr from-rose-500/15 via-pink-500/15 to-amber-500/15 group-hover:scale-125 transition-transform duration-500 pointer-events-none"></div>
+          
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="w-13 h-13 p-3 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-600 text-white shadow-lg shadow-rose-500/25 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="shield-alert" class="w-7 h-7"></i>
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-rose-500/15 text-rose-950 border border-rose-300/80">
+                <span class="w-2 h-2 rounded-full bg-rose-600 animate-pulse"></span>
+                Live Pengawas
+              </span>
+            </div>
+
+            <h4 class="text-xl sm:text-2xl font-extrabold text-[#1e1b4b] group-hover:text-pink-700 transition-colors">
+              Monitoring Ujian_Nedacitra
+            </h4>
+            <p class="text-xs sm:text-sm text-[#475569] font-medium mt-2 leading-relaxed">
+              Pantau aktivitas peserta dan log pelanggaran layar penuh (*fullscreen* / perpindahan tab) multi-kelas secara real-time.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-indigo-950/10 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-pink-700">Buka Live Monitoring</span>
+            <div class="w-9 h-9 rounded-full bg-pink-500/10 group-hover:bg-gradient-to-tr group-hover:from-rose-500 group-hover:to-pink-600 flex items-center justify-center transition-all">
+              <i data-lucide="arrow-right" class="w-4 h-4 text-pink-700 group-hover:text-white group-hover:translate-x-0.5 transition-all"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3. Administrasi ASAJ_Nedacitra (Span 2) -->
+        <a 
+          href="https://algian46-sudo.github.io/asaj_nedacitra/asaj_administrasi_ujian.html"
+          data-keywords="administrasi panitia jadwal pengawas berita acara kartu asaj nedacitra"
+          class="portal-card glass-card rounded-3xl p-6 lg:col-span-2 flex flex-col justify-between group relative overflow-hidden cursor-pointer block no-underline"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-600 text-white shadow-md shadow-blue-500/25 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="folder-kanban" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-blue-500/15 text-blue-950 border border-blue-300/80">
+                Panitia
+              </span>
+            </div>
+
+            <h4 class="text-lg font-extrabold text-[#1e1b4b] group-hover:text-blue-700 transition-colors">
+              Administrasi ASAJ_Nedacitra
+            </h4>
+            <p class="text-xs text-[#475569] font-medium mt-1.5 leading-relaxed">
+              Kelola dokumen administrasi ujian, perangkat panitia, jadwal pengawas, dan kelengkapan berkas ASAJ.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3.5 border-t border-indigo-950/10 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-blue-700">Masuk Administrasi</span>
+            <div class="w-8 h-8 rounded-full bg-blue-500/10 group-hover:bg-blue-600 flex items-center justify-center transition-all">
+              <i data-lucide="arrow-right" class="w-4 h-4 text-blue-700 group-hover:text-white transition-all"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4. Absensi QR_Nedacitra (Span 2) -->
+        <a 
+          href="https://algian46-sudo.github.io/asaj_nedacitra/asaj_absen_ujian.html"
+          data-keywords="absensi qr barcode scan kehadiran peserta asaj nedacitra"
+          class="portal-card glass-card rounded-3xl p-6 lg:col-span-2 flex flex-col justify-between group relative overflow-hidden cursor-pointer block no-underline"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/25 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="qr-code" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-500/15 text-emerald-950 border border-emerald-300/80">
+                Pemindai Cepat
+              </span>
+            </div>
+
+            <h4 class="text-lg font-extrabold text-[#1e1b4b] group-hover:text-emerald-700 transition-colors">
+              Absensi QR_Nedacitra
+            </h4>
+            <p class="text-xs text-[#475569] font-medium mt-1.5 leading-relaxed">
+              Pencatatan kehadiran peserta ASAJ berbasis pemindaian kode QR / kartu peserta secara instan dan akurat.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3.5 border-t border-indigo-950/10 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-emerald-700">Buka Scanner QR</span>
+            <div class="w-8 h-8 rounded-full bg-emerald-500/10 group-hover:bg-emerald-600 flex items-center justify-center transition-all">
+              <i data-lucide="arrow-right" class="w-4 h-4 text-emerald-700 group-hover:text-white transition-all"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5. Absensi Manual_ASAJ (Span 2) -->
+        <a 
+          href="https://algian46-sudo.github.io/asaj_nedacitra/asaj_absen_manual_ujian.html"
+          data-keywords="absensi manual kehadiran peserta cadangan ruang asaj"
+          class="portal-card glass-card rounded-3xl p-6 lg:col-span-2 flex flex-col justify-between group relative overflow-hidden cursor-pointer block no-underline"
+        >
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/25 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-500/15 text-amber-950 border border-amber-300/80">
+                Input Ruang
+              </span>
+            </div>
+
+            <h4 class="text-lg font-extrabold text-[#1e1b4b] group-hover:text-amber-700 transition-colors">
+              Absensi Manual_ASAJ
+            </h4>
+            <p class="text-xs text-[#475569] font-medium mt-1.5 leading-relaxed">
+              Formulir pencatatan presensi peserta ASAJ secara manual oleh pengawas ruang apabila kartu QR tidak terbawa.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3.5 border-t border-indigo-950/10 flex items-center justify-between">
+            <span class="text-xs font-extrabold text-amber-800">Buka Absen Manual</span>
+            <div class="w-8 h-8 rounded-full bg-amber-500/10 group-hover:bg-amber-600 flex items-center justify-center transition-all">
+              <i data-lucide="arrow-right" class="w-4 h-4 text-amber-800 group-hover:text-white transition-all"></i>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Empty Filter State -->
+      <div id="emptyFilterState" class="hidden glass-card rounded-3xl p-10 text-center mt-4">
+        <div class="w-14 h-14 rounded-2xl bg-violet-500/15 text-violet-700 flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="search-x" class="w-7 h-7"></i>
+        </div>
+        <h4 class="text-base font-extrabold text-[#1e1b4b]">Layanan Tidak Ditemukan</h4>
+        <p class="text-xs text-[#475569] font-medium mt-1">Coba kata kunci lain seperti "Absensi", "Administrasi", "Dashboard", atau "Monitoring".</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/80 py-5 text-center text-xs text-[#475569] font-semibold bg-white/70 backdrop-blur-md relative z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>&copy; 2026 Portal Terpadu ASAJ &bull; SMP Negeri 8 Cikarang Utara</p>
+      <p>Dikembangkan oleh <span class="text-[#1e1b4b] font-extrabold underline decoration-pink-500 decoration-2 underline-offset-4">Algian Manggara, S.Agr</span></p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Pastikan seluruh tautan di portal selalu terbuka di tab yang sama
+    document.querySelectorAll('#portalGrid a').forEach(link => {
+      link.removeAttribute('target');
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href) {
+          e.preventDefault();
+          window.location.assign(href);
+        }
+      });
+    });
+
+    // Jam Real-Time
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      const shortTime = now.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      const desktopClock = document.getElementById('desktopClock');
+      const mobileClock = document.getElementById('mobileClock');
+      if (desktopClock) desktopClock.textContent = `${timeStr} WIB`;
+      if (mobileClock) mobileClock.textContent = `${shortTime} WIB`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Filter Pencarian Cepat Layanan
+    function filterMenus() {
+      const query = document.getElementById('searchMenu').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('#portalGrid .portal-card');
+      const emptyState = document.getElementById('emptyFilterState');
+      const countBadge = document.getElementById('menuCountBadge');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+
+        if (title.includes(query) || desc.includes(query) || keywords.includes(query)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      countBadge.textContent = `${visibleCount} Modul Tersedia`;
+      emptyState.classList.toggle('hidden', visibleCount > 0);
+    }
+  </script>
+</body>
+</html>
