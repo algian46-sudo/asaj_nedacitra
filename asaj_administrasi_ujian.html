@@ -1014,6 +1014,14 @@
                 <option value="siswa">Paraf Siswa Saja</option>
               </select>
             </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-400 mb-1">Tata Letak Cetak</label>
+              <select id="kolomCetakJurnal" onchange="renderActiveTab()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white font-semibold">
+                <option value="4" selected>4 Siswa / Halaman A4 (2 Kolom &times; 2 Baris)</option>
+                <option value="2">2 Siswa / Halaman A4 (2 Kolom &times; 1 Baris)</option>
+                <option value="1">1 Siswa / Halaman A4 (1 Kolom Penuh)</option>
+              </select>
+            </div>
           </div>
           <div class="text-xs text-slate-400">Nama &amp; NIP Kepala Sekolah tetap tampil; gambar TTD &amp; Cap mengikuti pilihan TTD di bar atas.</div>
         </div>
@@ -4225,6 +4233,7 @@ function buildJsonResponse(obj) {
     function renderJurnalSiswa() {
       const ruangFilter = document.getElementById('filterRuangJurnal').value || 'ALL';
       const opsiParaf = document.getElementById('opsiParafJurnal')?.value || 'keduanya';
+      const perPage = parseInt(document.getElementById('kolomCetakJurnal')?.value || '4', 10);
       const list = ruangFilter === 'ALL'
         ? appState.students
         : appState.students.filter(s => s.ruang === ruangFilter);
@@ -4235,58 +4244,89 @@ function buildJsonResponse(obj) {
         ? agendaItems
         : Array.from({ length: 8 }, () => ({ hariTanggal: '', mapel: '', pukul: '' }));
 
+      const isSingle = perPage === 1;
+      const isTwo = perPage === 2;
+
+      const cardHeight = isSingle ? '278mm' : isTwo ? '278mm' : '138mm';
+      const gridCols = isSingle ? '1fr' : 'minmax(0, 1fr) minmax(0, 1fr)';
+      const titleSize = isSingle ? '10.5pt' : isTwo ? '8.6pt' : '7.6pt';
+      const bioFontSize = isSingle ? '9pt' : isTwo ? '7.6pt' : '6.8pt';
+      const bioLabelWidth = isSingle ? '78px' : isTwo ? '64px' : '54px';
+      const tableFontSize = isSingle ? '8.2pt' : isTwo ? '6.8pt' : '5.8pt';
+      const cellPad = isSingle ? '4px 5px' : isTwo ? '3px 4px' : '1.4px 2.5px';
+      const noColW = isSingle ? '26px' : isTwo ? '20px' : '16px';
+      const hariColW = isSingle ? '135px' : isTwo ? '84px' : '72px';
+      const parafBothW = isSingle ? '72px' : isTwo ? '50px' : '42px';
+      const parafSingleW = isSingle ? '110px' : isTwo ? '72px' : '60px';
+      const fotoW = isSingle ? '56px' : isTwo ? '44px' : '36px';
+      const fotoH = isSingle ? '72px' : isTwo ? '56px' : '46px';
+      const noteFontSize = isSingle ? '7.5pt' : isTwo ? '6.3pt' : '5.4pt';
+
       let headerParafCols = '';
       if (opsiParaf === 'keduanya') {
         headerParafCols = `
-          <th style="border:1px solid #000; width:46px; padding:1.5px; text-align:center;">Paraf<br>Pengawas</th>
-          <th style="border:1px solid #000; width:46px; padding:1.5px; text-align:center;">Paraf<br>Siswa</th>
+          <th style="border:1px solid #000; width:${parafBothW}; padding:${cellPad}; text-align:center;">Paraf<br>Pengawas</th>
+          <th style="border:1px solid #000; width:${parafBothW}; padding:${cellPad}; text-align:center;">Paraf<br>Siswa</th>
         `;
       } else if (opsiParaf === 'pengawas') {
-        headerParafCols = `<th style="border:1px solid #000; width:64px; padding:1.5px; text-align:center;">Paraf<br>Pengawas</th>`;
+        headerParafCols = `<th style="border:1px solid #000; width:${parafSingleW}; padding:${cellPad}; text-align:center;">Paraf<br>Pengawas</th>`;
       } else {
-        headerParafCols = `<th style="border:1px solid #000; width:64px; padding:1.5px; text-align:center;">Paraf<br>Siswa</th>`;
+        headerParafCols = `<th style="border:1px solid #000; width:${parafSingleW}; padding:${cellPad}; text-align:center;">Paraf<br>Siswa</th>`;
       }
 
       let pagesHtml = '';
-      for (let i = 0; i < list.length; i += 4) {
-        const chunk = list.slice(i, i + 4);
+      for (let i = 0; i < list.length; i += perPage) {
+        const chunk = list.slice(i, i + perPage);
         const cards = chunk.map(st => {
+          const fotoUrl = resolveDriveImage(st.foto);
           const rowsHtml = displayRows.map((item, idx) => {
             const parafCells = opsiParaf === 'keduanya'
-              ? `<td style="border:1px solid #000; padding:1.5px;"></td><td style="border:1px solid #000; padding:1.5px;"></td>`
-              : `<td style="border:1px solid #000; padding:1.5px;"></td>`;
+              ? `<td style="border:1px solid #000; padding:${cellPad};"></td><td style="border:1px solid #000; padding:${cellPad};"></td>`
+              : `<td style="border:1px solid #000; padding:${cellPad};"></td>`;
 
             return `
               <tr>
-                <td style="border:1px solid #000; text-align:center; padding:1.5px;">${idx + 1}</td>
-                <td style="border:1px solid #000; padding:1.5px 3px; overflow-wrap:anywhere;">${escapeHtml(item.hariTanggal)}</td>
-                <td style="border:1px solid #000; padding:1.5px 3px; font-weight:600; overflow-wrap:anywhere;">${escapeHtml(item.mapel)}</td>
+                <td style="border:1px solid #000; text-align:center; padding:${cellPad};">${idx + 1}</td>
+                <td style="border:1px solid #000; padding:${cellPad}; overflow-wrap:anywhere;">${escapeHtml(item.hariTanggal)}</td>
+                <td style="border:1px solid #000; padding:${cellPad}; font-weight:600; overflow-wrap:anywhere;">${escapeHtml(item.mapel)}</td>
                 ${parafCells}
               </tr>
             `;
           }).join('');
 
           return `
-            <div style="min-width:0; border:1.8px solid #000; height:138mm; display:flex; flex-direction:column; justify-content:space-between; background:#fff; overflow:visible;">
+            <div style="min-width:0; border:1.8px solid #000; height:${cardHeight}; display:flex; flex-direction:column; justify-content:space-between; background:#fff; overflow:visible;">
               <div style="min-width:0;">
-                ${buildCardKopHTML(false, true)}
-                <div style="padding:2px 6px 0 6px;">
-                  <div style="text-align:center; font-size:7.6pt; font-weight:bold; text-decoration:underline; margin-bottom:2px;">
+                ${buildCardKopHTML(false, !isSingle)}
+                <div style="padding:${isSingle ? '5px 12px 0 12px' : '2px 6px 0 6px'};">
+                  <div style="text-align:center; font-size:${titleSize}; font-weight:bold; text-decoration:underline; margin-bottom:${isSingle ? '6px' : '2.5px'};">
                     JURNAL AGENDA &amp; KENDALI PESERTA UJIAN
                   </div>
 
-                  <table style="width:100%; font-size:6.8pt; margin-bottom:2.5px; line-height:1.15; border-collapse:collapse; table-layout:fixed;">
-                    <tr><td style="width:58px;">Nama</td><td style="width:7px;">:</td><td style="font-weight:bold; overflow-wrap:anywhere;">${escapeHtml(st.nama)}</td></tr>
-                    <tr><td>No. Peserta</td><td>:</td><td style="font-weight:bold; overflow-wrap:anywhere;">${escapeHtml(st.noPeserta)} (${escapeHtml(st.ruang)})</td></tr>
-                    <tr><td>Kelas</td><td>:</td><td style="overflow-wrap:anywhere;">${escapeHtml(st.kelas)}</td></tr>
-                  </table>
+                  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:6px; margin-bottom:${isSingle ? '6px' : '2.5px'};">
+                    <table style="flex:1; min-width:0; font-size:${bioFontSize}; line-height:${isSingle ? '1.35' : '1.15'}; border-collapse:collapse; table-layout:fixed;">
+                      <tr><td style="width:${bioLabelWidth};">Nama</td><td style="width:7px;">:</td><td style="font-weight:bold; overflow-wrap:anywhere;">${escapeHtml(st.nama)}</td></tr>
+                      <tr><td>No. Peserta</td><td>:</td><td style="font-weight:bold; overflow-wrap:anywhere;">${escapeHtml(st.noPeserta)} (${escapeHtml(st.ruang)})</td></tr>
+                      <tr><td>NISN</td><td>:</td><td style="overflow-wrap:anywhere;">${escapeHtml(st.nisn || '-')}</td></tr>
+                      <tr><td>Kelas</td><td>:</td><td style="overflow-wrap:anywhere;">${escapeHtml(st.kelas)}</td></tr>
+                    </table>
 
-                  <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:6pt;">
+                    <div style="width:${fotoW}; height:${fotoH}; border:1.5px solid #000; padding:1px; background:#fff; flex-shrink:0;">
+                      <div style="width:100%; height:100%; border:1px solid #000; display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; background:#f8fafc;">
+                        ${fotoUrl
+                          ? `<img src="${fotoUrl}" referrerpolicy="no-referrer" style="width:100%; height:100%; object-fit:cover; display:block;" />`
+                          : `<span style="font-size:${isSingle ? '6.5pt' : '5pt'}; font-weight:bold; color:#475569; text-align:center; line-height:1.05;">FOTO<br><span style="font-weight:normal;">2x3</span></span>`
+                        }
+                      </div>
+                    </div>
+                  </div>
+
+                  <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:${tableFontSize};">
                     <thead>
                       <tr style="background:#f1f5f9; -webkit-print-color-adjust:exact; print-color-adjust:exact;">
-                        <th style="border:1px solid #000; width:16px; padding:1.5px;">No</th>
-                        <th style="border:1px solid #000; width:74px; padding:1.5px;">Hari / Tanggal</th>
-                        <th style="border:1px solid #000; padding:1.5px;">Mata Pelajaran</th>
+                        <th style="border:1px solid #000; width:${noColW}; padding:${cellPad};">No</th>
+                        <th style="border:1px solid #000; width:${hariColW}; padding:${cellPad};">Hari / Tanggal</th>
+                        <th style="border:1px solid #000; padding:${cellPad};">Mata Pelajaran</th>
                         ${headerParafCols}
                       </tr>
                     </thead>
@@ -4295,18 +4335,18 @@ function buildJsonResponse(obj) {
                 </div>
               </div>
 
-              <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:4px; padding:0 6px 3px 6px; min-width:0; overflow:visible;">
-                <div style="font-size:5.6pt; font-style:italic; color:#334155; flex:1; min-width:0; overflow-wrap:anywhere;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:4px; padding:${isSingle ? '0 12px 8px 12px' : '0 6px 3px 6px'}; min-width:0; overflow:visible;">
+                <div style="font-size:${noteFontSize}; font-style:italic; color:#334155; flex:1; min-width:0; overflow-wrap:anywhere;">
                   * Wajib diparaf Pengawas &amp; Peserta setelah selesai ujian.
                 </div>
-                ${buildTtdWithDigitalStampHTML('compact')}
+                ${buildTtdWithDigitalStampHTML(isSingle ? 'normal' : 'compact')}
               </div>
             </div>
           `;
         }).join('');
 
         pagesHtml += `
-          <div class="a4-page" style="display:grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap:3mm; align-content:start;">
+          <div class="a4-page" style="display:grid; grid-template-columns: ${gridCols}; gap:3mm; align-content:start;">
             ${cards}
           </div>
         `;
